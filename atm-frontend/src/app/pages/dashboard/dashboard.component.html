@@ -1,13 +1,13 @@
 <div class="space-y-6 animate-in fade-in duration-700">
   <header class="flex justify-between items-center">
     <div>
-      <h1 class="text-3xl font-bold dark:text-white tracking-tight">Dashboard</h1>
-      <p class="text-slate-500 dark:text-slate-400">System overview and Squad metrics.</p>
+      <h1 class="text-3xl font-black dark:text-white tracking-tighter uppercase italic tracking-widest">King Claw Dashboard</h1>
+      <p class="text-slate-500 dark:text-slate-400 font-medium">Real-time Squad metrics and operational status.</p>
     </div>
     <div class="flex gap-3">
       <div class="px-4 py-2 glass rounded-2xl flex items-center gap-2 border border-slate-200 dark:border-white/5 shadow-sm">
-        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-        <span class="text-sm font-bold uppercase tracking-tighter dark:text-slate-200">System Online</span>
+        <div [class]="'w-2 h-2 rounded-full ' + (isOnline() ? 'bg-green-500 animate-pulse' : 'bg-red-500')"></div>
+        <span class="text-sm font-bold uppercase tracking-tighter dark:text-slate-200">{{ isOnline() ? 'System Online' : 'System Offline' }}</span>
       </div>
     </div>
   </header>
@@ -17,7 +17,7 @@
     <div class="p-8 glass rounded-[2rem] border border-slate-200 dark:border-white/5 space-y-2 hover:scale-[1.02] transition-all cursor-default">
       <p class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Active Agents</p>
       <div class="flex items-end justify-between pt-2">
-        <h2 class="text-5xl font-black dark:text-white italic tracking-tighter">04</h2>
+        <h2 class="text-5xl font-black dark:text-white italic tracking-tighter">{{ agentCount().toString().padStart(2, '0') }}</h2>
         <span class="text-green-500 text-xs font-bold bg-green-500/10 px-2 py-1 rounded-lg">100%</span>
       </div>
     </div>
@@ -25,23 +25,25 @@
     <div class="p-8 glass rounded-[2rem] border border-slate-200 dark:border-white/5 space-y-2 hover:scale-[1.02] transition-all cursor-default">
       <p class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Total Tasks</p>
       <div class="flex items-end justify-between pt-2">
-        <h2 class="text-5xl font-black dark:text-white italic tracking-tighter">00</h2>
-        <span class="text-slate-400 text-[10px] font-bold uppercase">Today</span>
+        <h2 class="text-5xl font-black dark:text-white italic tracking-tighter">{{ taskCount().toString().padStart(2, '0') }}</h2>
+        <span class="text-slate-400 text-[10px] font-bold uppercase">24H</span>
       </div>
     </div>
 
     <div class="p-8 glass rounded-[2rem] border border-slate-200 dark:border-white/5 space-y-2 hover:scale-[1.02] transition-all cursor-default">
       <p class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Failures</p>
       <div class="flex items-end justify-between pt-2">
-        <h2 class="text-5xl font-black dark:text-white italic tracking-tighter text-red-500/20">00</h2>
-        <span class="text-slate-400 text-[10px] font-bold uppercase">24h</span>
+        <h2 [class]="'text-5xl font-black italic tracking-tighter ' + (failureCount() > 0 ? 'text-red-500' : 'text-slate-300 dark:text-white/20')">
+            {{ failureCount().toString().padStart(2, '0') }}
+        </h2>
+        <span class="text-slate-400 text-[10px] font-bold uppercase">Critical</span>
       </div>
     </div>
 
     <div class="p-8 glass rounded-[2rem] border border-slate-200 dark:border-white/5 space-y-2 hover:scale-[1.02] transition-all cursor-default">
       <p class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Throughput</p>
       <div class="flex items-end justify-between pt-2">
-        <h2 class="text-5xl font-black dark:text-white italic tracking-tighter">0.0</h2>
+        <h2 class="text-5xl font-black dark:text-white italic tracking-tighter">{{ throughput() }}</h2>
         <span class="text-slate-400 text-[10px] font-bold uppercase italic">RPM</span>
       </div>
     </div>
@@ -50,15 +52,15 @@
   <!-- Recent Activity Preview -->
   <div class="glass rounded-[2.5rem] border border-slate-200 dark:border-white/5 overflow-hidden">
     <div class="px-8 py-6 border-b border-slate-200 dark:border-white/10 flex justify-between items-center bg-slate-50/50 dark:bg-white/[0.02]">
-      <h3 class="text-lg font-black dark:text-white uppercase tracking-wider">Recent Activity</h3>
-      <button routerLink="/activity" class="text-brand-primary text-[10px] font-black uppercase tracking-widest bg-brand-primary/10 px-4 py-2 rounded-xl hover:bg-brand-primary/20 transition-all">View Full Logs</button>
+      <h3 class="text-lg font-black dark:text-white uppercase tracking-wider italic">Tactical Feed</h3>
+      <button routerLink="/activity" class="text-brand-primary text-[10px] font-black uppercase tracking-widest bg-brand-primary/10 px-4 py-2 rounded-xl hover:bg-brand-primary/20 transition-all">Full Log</button>
     </div>
     <div class="p-16 text-center">
       <div class="w-12 h-12 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center mx-auto mb-4">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-slate-300"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
       </div>
-      <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">No signals detected</p>
-      <p class="text-xs text-slate-500 mt-1 font-medium italic">The Squad is currently standing by in maintenance mode.</p>
+      <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">No active signals</p>
+      <p class="text-xs text-slate-500 mt-1 font-medium italic">Polling King Claw VPS backend on port 8001...</p>
     </div>
   </div>
 </div>

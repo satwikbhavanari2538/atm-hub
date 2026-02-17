@@ -1,167 +1,83 @@
 <div class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
   <header>
-    <h1 class="text-3xl font-black dark:text-white tracking-tighter uppercase">SQUAD MANAGEMENT</h1>
-    <p class="text-slate-500 dark:text-slate-400 font-medium">Monitoring 4 active neural processors in high-availability mode.</p>
+    <h1 class="text-3xl font-black dark:text-white tracking-tighter uppercase italic tracking-widest">SQUAD MANAGEMENT</h1>
+    <p class="text-slate-500 dark:text-slate-400 font-medium tracking-tight">Monitoring 4 active neural processors in high-availability mode.</p>
   </header>
 
   <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
-    <!-- Agent Card: Claw -->
-    <div class="glass rounded-[2.5rem] border border-slate-200 dark:border-white/5 p-10 flex flex-col gap-8 hover:scale-[1.01] transition-all relative overflow-hidden group">
+    <div *ngFor="let agent of agents()" 
+         class="glass rounded-[2.5rem] border border-slate-200 dark:border-white/5 p-10 flex flex-col gap-8 hover:scale-[1.01] transition-all relative overflow-hidden group">
+      
+      <!-- Status Badge -->
       <div class="absolute top-0 right-0 p-6">
-        <div class="flex items-center gap-2 bg-green-500/10 px-3 py-1 rounded-full">
-          <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-          <span class="text-[10px] font-black uppercase text-green-500 tracking-widest">Active</span>
+        <div [class]="'flex items-center gap-2 px-3 py-1 rounded-full ' + (agent.is_online ? 'bg-green-500/10' : 'bg-red-500/10')">
+          <span [class]="'w-1.5 h-1.5 rounded-full ' + (agent.is_online ? 'bg-green-500 animate-pulse' : 'bg-red-500')"></span>
+          <span [class]="'text-[10px] font-black uppercase tracking-widest ' + (agent.is_online ? 'text-green-500' : 'text-red-500')">
+            {{ agent.is_online ? 'Active' : 'Offline' }}
+          </span>
         </div>
       </div>
+
+      <!-- Agent Info -->
       <div class="flex gap-6 items-center">
-        <div class="w-20 h-20 rounded-3xl bg-indigo-500/10 flex items-center justify-center text-4xl shadow-inner group-hover:bg-indigo-500/20 transition-colors">👑</div>
+        <div [class]="'w-20 h-20 rounded-3xl flex items-center justify-center text-4xl shadow-inner transition-colors ' + 
+                     (agent.agent_id === 'claw' ? 'bg-indigo-500/10 group-hover:bg-indigo-500/20' : 
+                      agent.agent_id === 'bar' ? 'bg-orange-500/10 group-hover:bg-orange-500/20' : 
+                      agent.agent_id === 'noma' ? 'bg-blue-500/10 group-hover:bg-blue-500/20' : 
+                      'bg-emerald-500/10 group-hover:bg-emerald-500/20')">
+          {{agent.emoji}}
+        </div>
         <div>
-          <h2 class="text-2xl font-black dark:text-white tracking-tight">CLAW</h2>
-          <p class="text-[10px] font-bold text-indigo-500 uppercase tracking-[0.3em]">Lead Strategist</p>
+          <h2 class="text-2xl font-black dark:text-white tracking-tight italic">{{agent.name}}</h2>
+          <p [class]="'text-[10px] font-bold uppercase tracking-[0.3em] ' + 
+                     (agent.agent_id === 'claw' ? 'text-indigo-500' : 
+                      agent.agent_id === 'bar' ? 'text-orange-500' : 
+                      agent.agent_id === 'noma' ? 'text-blue-500' : 
+                      'text-emerald-500')">
+            {{agent.role}}
+          </p>
         </div>
       </div>
+
+      <!-- Metrics -->
       <div class="grid grid-cols-2 gap-4">
         <div class="p-6 rounded-[1.5rem] bg-slate-100/50 dark:bg-white/[0.03] border border-transparent dark:border-white/5 space-y-1">
-          <p class="text-[9px] uppercase font-black text-slate-400 dark:text-slate-500 tracking-widest">Model Engine</p>
-          <p class="text-sm font-black dark:text-slate-200 italic truncate">GEMINI 3 FLASH</p>
+          <p class="text-[9px] font-black text-slate-400 dark:text-slate-500 tracking-widest uppercase italic">Neural Core</p>
+          <p class="text-sm font-black dark:text-slate-200 italic truncate uppercase tracking-tighter">{{agent.model}}</p>
         </div>
         <div class="p-6 rounded-[1.5rem] bg-slate-100/50 dark:bg-white/[0.03] border border-transparent dark:border-white/5 space-y-1">
-          <p class="text-[9px] uppercase font-black text-slate-400 dark:text-slate-500 tracking-widest">Latency</p>
-          <p class="text-sm font-black dark:text-slate-200 italic">44MS</p>
+          <p class="text-[9px] font-black text-slate-400 dark:text-slate-500 tracking-widest uppercase italic">Status</p>
+          <p class="text-sm font-black dark:text-slate-200 italic uppercase tracking-tighter">{{ agent.latency || agent.stack || agent.focus || agent.schedule || 'Operational' }}</p>
         </div>
       </div>
+
+      <!-- Load Bar -->
       <div class="space-y-3">
         <div class="flex justify-between text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-          <span>Concurrency Load</span>
-          <span>0/4</span>
+          <span>System Load</span>
+          <span>{{agent.load}}</span>
         </div>
         <div class="w-full h-1.5 bg-slate-100 dark:bg-white/5 rounded-full overflow-hidden">
-          <div class="bg-indigo-500 h-full w-0 transition-all duration-1000"></div>
+          <div [class]="'h-full transition-all duration-1000 ' + 
+                       (agent.agent_id === 'claw' ? 'bg-indigo-500 w-0' : 
+                        agent.agent_id === 'bar' ? 'bg-orange-500 w-[85%] animate-pulse' : 
+                        agent.agent_id === 'noma' ? 'bg-blue-500 w-0' : 
+                        'bg-emerald-500 w-full')"
+               [style.width]="agent.load === 'READY' || agent.load === 'OPTIMAL' ? '0%' : (agent.load.includes('/') ? '0%' : agent.load)">
+          </div>
         </div>
       </div>
+
+      <!-- Actions -->
       <div class="flex gap-3 pt-2">
-        <button class="flex-1 py-4 rounded-2xl bg-brand-primary text-white text-[10px] font-black uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-indigo-500/20">Access Logs</button>
+        <button [class]="'flex-1 py-4 rounded-2xl text-white text-[10px] font-black uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-lg ' + 
+                         (agent.agent_id === 'claw' ? 'bg-indigo-500 shadow-indigo-500/20' : 
+                          agent.agent_id === 'bar' ? 'bg-orange-500 shadow-orange-500/20' : 
+                          agent.agent_id === 'noma' ? 'bg-blue-500 shadow-blue-500/20' : 
+                          'bg-emerald-500 shadow-emerald-500/20')">
+          Access Protocol
+        </button>
         <button class="px-8 py-4 rounded-2xl border border-slate-200 dark:border-white/10 dark:text-slate-300 text-[10px] font-black uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-white/5 transition-all">Skills</button>
-      </div>
-    </div>
-
-    <!-- Agent Card: Bar -->
-    <div class="glass rounded-[2.5rem] border border-slate-200 dark:border-white/5 p-10 flex flex-col gap-8 hover:scale-[1.01] transition-all relative overflow-hidden group">
-      <div class="absolute top-0 right-0 p-6">
-        <div class="flex items-center gap-2 bg-orange-500/10 px-3 py-1 rounded-full">
-          <span class="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse"></span>
-          <span class="text-[10px] font-black uppercase text-orange-500 tracking-widest">Processing</span>
-        </div>
-      </div>
-      <div class="flex gap-6 items-center">
-        <div class="w-20 h-20 rounded-3xl bg-orange-500/10 flex items-center justify-center text-4xl shadow-inner group-hover:bg-orange-500/20 transition-colors">🏗️</div>
-        <div>
-          <h2 class="text-2xl font-black dark:text-white tracking-tight">BAR</h2>
-          <p class="text-[10px] font-bold text-orange-500 uppercase tracking-[0.3em]">Full-Stack Build</p>
-        </div>
-      </div>
-      <div class="grid grid-cols-2 gap-4">
-        <div class="p-6 rounded-[1.5rem] bg-slate-100/50 dark:bg-white/[0.03] border border-transparent dark:border-white/5 space-y-1">
-          <p class="text-[9px] uppercase font-black text-slate-400 dark:text-slate-500 tracking-widest">Logic Core</p>
-          <p class="text-sm font-black dark:text-slate-200 italic truncate">CLAUDE 3.5 SONNET</p>
-        </div>
-        <div class="p-6 rounded-[1.5rem] bg-slate-100/50 dark:bg-white/[0.03] border border-transparent dark:border-white/5 space-y-1">
-          <p class="text-[9px] uppercase font-black text-slate-400 dark:text-slate-500 tracking-widest">Environment</p>
-          <p class="text-sm font-black dark:text-slate-200 italic">DIGITALOCEAN</p>
-        </div>
-      </div>
-      <div class="space-y-3">
-        <div class="flex justify-between text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-          <span>Build Progress</span>
-          <span>85%</span>
-        </div>
-        <div class="w-full h-1.5 bg-slate-100 dark:bg-white/5 rounded-full overflow-hidden">
-          <div class="bg-orange-500 h-full w-[85%] animate-pulse"></div>
-        </div>
-      </div>
-      <div class="flex gap-3 pt-2">
-        <button class="flex-1 py-4 rounded-2xl bg-orange-500 text-white text-[10px] font-black uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-orange-500/20">Monitor Build</button>
-        <button class="px-8 py-4 rounded-2xl border border-slate-200 dark:border-white/10 dark:text-slate-300 text-[10px] font-black uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-white/5 transition-all">Terminal</button>
-      </div>
-    </div>
-
-    <!-- Agent Card: Noma -->
-    <div class="glass rounded-[2.5rem] border border-slate-200 dark:border-white/5 p-10 flex flex-col gap-8 hover:scale-[1.01] transition-all relative overflow-hidden group">
-      <div class="absolute top-0 right-0 p-6">
-        <div class="flex items-center gap-2 bg-blue-500/10 px-3 py-1 rounded-full">
-          <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
-          <span class="text-[10px] font-black uppercase text-blue-500 tracking-widest">Active</span>
-        </div>
-      </div>
-      <div class="flex gap-6 items-center">
-        <div class="w-20 h-20 rounded-3xl bg-blue-500/10 flex items-center justify-center text-4xl shadow-inner group-hover:bg-blue-500/20 transition-colors">🔍</div>
-        <div>
-          <h2 class="text-2xl font-black dark:text-white tracking-tight">NOMA</h2>
-          <p class="text-[10px] font-bold text-blue-500 uppercase tracking-[0.3em]">Neural Researcher</p>
-        </div>
-      </div>
-      <div class="grid grid-cols-2 gap-4">
-        <div class="p-6 rounded-[1.5rem] bg-slate-100/50 dark:bg-white/[0.03] border border-transparent dark:border-white/5 space-y-1">
-          <p class="text-[9px] uppercase font-black text-slate-400 dark:text-slate-500 tracking-widest">Intelligence</p>
-          <p class="text-sm font-black dark:text-slate-200 italic truncate">OPENROUTER AUTO</p>
-        </div>
-        <div class="p-6 rounded-[1.5rem] bg-slate-100/50 dark:bg-white/[0.03] border border-transparent dark:border-white/5 space-y-1">
-          <p class="text-[9px] uppercase font-black text-slate-400 dark:text-slate-500 tracking-widest">Focus</p>
-          <p class="text-sm font-black dark:text-slate-200 italic">WEB/MARKET</p>
-        </div>
-      </div>
-      <div class="space-y-3">
-        <div class="flex justify-between text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-          <span>Research Depth</span>
-          <span>Ready</span>
-        </div>
-        <div class="w-full h-1.5 bg-slate-100 dark:bg-white/5 rounded-full overflow-hidden">
-          <div class="bg-blue-500 h-full w-0"></div>
-        </div>
-      </div>
-      <div class="flex gap-3 pt-2">
-        <button class="flex-1 py-4 rounded-2xl bg-blue-500 text-white text-[10px] font-black uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-blue-500/20">Initiate Search</button>
-        <button class="px-8 py-4 rounded-2xl border border-slate-200 dark:border-white/10 dark:text-slate-300 text-[10px] font-black uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-white/5 transition-all">Knowledge Base</button>
-      </div>
-    </div>
-
-    <!-- Agent Card: Naji -->
-    <div class="glass rounded-[2.5rem] border border-slate-200 dark:border-white/5 p-10 flex flex-col gap-8 hover:scale-[1.01] transition-all relative overflow-hidden group">
-      <div class="absolute top-0 right-0 p-6">
-        <div class="flex items-center gap-2 bg-emerald-500/10 px-3 py-1 rounded-full">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span class="text-[10px] font-black uppercase text-emerald-500 tracking-widest">Active</span>
-        </div>
-      </div>
-      <div class="flex gap-6 items-center">
-        <div class="w-20 h-20 rounded-3xl bg-emerald-500/10 flex items-center justify-center text-4xl shadow-inner group-hover:bg-emerald-500/20 transition-colors">📅</div>
-        <div>
-          <h2 class="text-2xl font-black dark:text-white tracking-tight">NAJI</h2>
-          <p class="text-[10px] font-bold text-emerald-500 uppercase tracking-[0.3em]">Personal Liaison</p>
-        </div>
-      </div>
-      <div class="grid grid-cols-2 gap-4">
-        <div class="p-6 rounded-[1.5rem] bg-slate-100/50 dark:bg-white/[0.03] border border-transparent dark:border-white/5 space-y-1">
-          <p class="text-[9px] uppercase font-black text-slate-400 dark:text-slate-500 tracking-widest">Neural Link</p>
-          <p class="text-sm font-black dark:text-slate-200 italic truncate">GEMINI 2.5 LITE</p>
-        </div>
-        <div class="p-6 rounded-[1.5rem] bg-slate-100/50 dark:bg-white/[0.03] border border-transparent dark:border-white/5 space-y-1">
-          <p class="text-[9px] uppercase font-black text-slate-400 dark:text-slate-500 tracking-widest">Schedule</p>
-          <p class="text-sm font-black dark:text-slate-200 italic italic">NEXT SYNC: 16:00</p>
-        </div>
-      </div>
-      <div class="space-y-3">
-        <div class="flex justify-between text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-          <span>Task Hygiene</span>
-          <span>Optimal</span>
-        </div>
-        <div class="w-full h-1.5 bg-slate-100 dark:bg-white/5 rounded-full overflow-hidden">
-          <div class="bg-emerald-500 h-full w-full"></div>
-        </div>
-      </div>
-      <div class="flex gap-3 pt-2">
-        <button class="flex-1 py-4 rounded-2xl bg-emerald-500 text-white text-[10px] font-black uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-emerald-500/20">Manage Briefs</button>
-        <button class="px-8 py-4 rounded-2xl border border-slate-200 dark:border-white/10 dark:text-slate-300 text-[10px] font-black uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-white/5 transition-all">Calendar</button>
       </div>
     </div>
   </div>

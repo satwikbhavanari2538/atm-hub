@@ -1,6 +1,7 @@
 import { Component, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ApiService } from '../../services/api.service';
 
 interface Message {
   id: string;
@@ -36,8 +37,10 @@ export class ChatComponent implements OnInit {
   selectedAgentId = signal<string>('claw');
   newMessage = '';
   messages: Message[] = [
-    { id: '1', sender: 'agent', agentId: 'claw', text: 'Tactical link established. How can I assist, Satwik?', timestamp: new Date() }
+    { id: '1', sender: 'agent', agentId: 'claw', text: 'Tactical link established with King Claw. How can I assist, Satwik?', timestamp: new Date() }
   ];
+
+  constructor(private apiService: ApiService) {}
 
   get selectedAgent() {
     return this.agents.find(a => a.id === this.selectedAgentId());
@@ -48,6 +51,20 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.refreshAgentStatus();
+  }
+
+  refreshAgentStatus() {
+    this.apiService.getAgents().subscribe({
+      next: (liveAgents: any[]) => {
+        if (liveAgents && liveAgents.length > 0) {
+          this.agents.forEach(a => {
+            const live = liveAgents.find((la: any) => la.agent_id === a.id);
+            if (live) a.online = live.is_online;
+          });
+        }
+      }
+    });
   }
 
   selectAgent(id: string) {
@@ -66,14 +83,16 @@ export class ChatComponent implements OnInit {
     };
 
     this.messages.push(userMsg);
+    const directiveText = this.newMessage;
     this.newMessage = '';
 
+    // Simulate Agent Directive Receipt
     setTimeout(() => {
       const response: Message = {
         id: (Date.now() + 1).toString(),
         sender: 'agent',
         agentId: this.selectedAgentId(),
-        text: `Received directive: "${userMsg.text}". Processing...`,
+        text: `DIRECTIVE RECEIVED: "${directiveText}". Synchronizing with King Claw Core.`,
         timestamp: new Date()
       };
       this.messages.push(response);
