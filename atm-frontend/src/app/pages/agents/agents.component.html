@@ -1,1 +1,175 @@
-<p>agents works!</p>
+<div class="space-y-6 animate-in fade-in duration-700">
+  <header>
+    <h1 class="text-3xl font-bold dark:text-white">Squad Management</h1>
+    <p class="text-slate-500 dark:text-slate-400">View and manage agent capacities, skills, and live logs.</p>
+  </header>
+
+  <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+    <!-- Agent Card: Claw -->
+    <div class="glass rounded-3xl p-8 flex flex-col gap-6 hover:shadow-2xl hover:shadow-brand-primary/5 transition-all group">
+      <div class="flex justify-between items-start">
+        <div class="flex gap-4 items-center">
+          <div class="w-16 h-16 rounded-2xl bg-indigo-500/20 flex items-center justify-center text-3xl">👑</div>
+          <div>
+            <h2 class="text-xl font-bold dark:text-white">Claw</h2>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-green-500/10 text-green-500 uppercase tracking-tighter">Admin Agent</span>
+          </div>
+        </div>
+        <div class="flex flex-col items-end">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+            <span class="text-sm font-medium dark:text-slate-300">Online</span>
+          </div>
+          <span class="text-[10px] text-slate-400 mt-1 uppercase font-bold tracking-widest">Lat: 44ms</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="p-4 rounded-2xl bg-slate-100/50 dark:bg-white/5 space-y-1">
+          <p class="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-widest">Model</p>
+          <p class="text-sm font-semibold dark:text-white truncate">Gemini 3 Flash</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-100/50 dark:bg-white/5 space-y-1">
+          <p class="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-widest">Capacity</p>
+          <p class="text-sm font-semibold dark:text-white">4 Concurrent</p>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <div class="flex justify-between text-xs font-bold uppercase tracking-widest text-slate-400">
+          <span>Active Tasks</span>
+          <span>0/4</span>
+        </div>
+        <div class="w-full h-2 bg-slate-200 dark:bg-white/5 rounded-full overflow-hidden">
+          <div class="bg-brand-primary h-full transition-all duration-1000" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <div class="flex gap-2 pt-2">
+        <button class="flex-1 py-2 rounded-xl bg-brand-primary text-white text-sm font-bold hover:bg-brand-primary/90 transition-colors">View Logs</button>
+        <button class="px-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 dark:text-white text-sm font-bold hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">Skills</button>
+      </div>
+    </div>
+
+    <!-- Agent Card: Bar -->
+    <div class="glass rounded-3xl p-8 flex flex-col gap-6 hover:shadow-2xl hover:shadow-brand-primary/5 transition-all group border-l-4 border-l-orange-500">
+      <div class="flex justify-between items-start">
+        <div class="flex gap-4 items-center">
+          <div class="w-16 h-16 rounded-2xl bg-orange-500/20 flex items-center justify-center text-3xl">🏗️</div>
+          <div>
+            <h2 class="text-xl font-bold dark:text-white">Bar</h2>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-500 uppercase tracking-tighter">Developer</span>
+          </div>
+        </div>
+        <div class="flex flex-col items-end">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-green-500"></span>
+            <span class="text-sm font-medium dark:text-slate-300">Idle</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="p-4 rounded-2xl bg-slate-100/50 dark:bg-white/5 space-y-1">
+          <p class="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-widest">Model</p>
+          <p class="text-sm font-semibold dark:text-white truncate">Claude 3.5 Sonnet</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-100/50 dark:bg-white/5 space-y-1">
+          <p class="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-widest">Stack</p>
+          <p class="text-sm font-semibold dark:text-white">Full-Stack</p>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <div class="flex justify-between text-xs font-bold uppercase tracking-widest text-slate-400">
+          <span>Processing ATM Backend</span>
+          <span>85%</span>
+        </div>
+        <div class="w-full h-2 bg-slate-200 dark:bg-white/5 rounded-full overflow-hidden">
+          <div class="bg-orange-500 h-full animate-pulse" style="width: 85%"></div>
+        </div>
+      </div>
+
+      <div class="flex gap-2 pt-2">
+        <button class="flex-1 py-2 rounded-xl bg-orange-500 text-white text-sm font-bold hover:bg-orange-600 transition-colors">View Logs</button>
+        <button class="px-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 dark:text-white text-sm font-bold hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">Terminal</button>
+      </div>
+    </div>
+
+    <!-- Agent Card: Noma -->
+    <div class="glass rounded-3xl p-8 flex flex-col gap-6 hover:shadow-2xl hover:shadow-brand-primary/5 transition-all group border-l-4 border-l-blue-500">
+      <div class="flex justify-between items-start">
+        <div class="flex gap-4 items-center">
+          <div class="w-16 h-16 rounded-2xl bg-blue-500/20 flex items-center justify-center text-3xl">🔍</div>
+          <div>
+            <h2 class="text-xl font-bold dark:text-white">Noma</h2>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-500 uppercase tracking-tighter">Researcher</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-green-500"></span>
+          <span class="text-sm font-medium dark:text-slate-300">Online</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="p-4 rounded-2xl bg-slate-100/50 dark:bg-white/5 space-y-1">
+          <p class="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-widest">Model</p>
+          <p class="text-sm font-semibold dark:text-white truncate">OpenRouter Auto</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-100/50 dark:bg-white/5 space-y-1">
+          <p class="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-widest">Focus</p>
+          <p class="text-sm font-semibold dark:text-white">Web/Market</p>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-2xl border border-dashed border-slate-200 dark:border-white/10 text-center text-xs text-slate-400">
+        Noma is currently available for deep research tasks.
+      </div>
+
+      <div class="flex gap-2 pt-2">
+        <button class="flex-1 py-2 rounded-xl bg-blue-500 text-white text-sm font-bold hover:bg-blue-600 transition-colors">Start Research</button>
+      </div>
+    </div>
+
+    <!-- Agent Card: Naji -->
+    <div class="glass rounded-3xl p-8 flex flex-col gap-6 hover:shadow-2xl hover:shadow-brand-primary/5 transition-all group border-l-4 border-l-emerald-500">
+      <div class="flex justify-between items-start">
+        <div class="flex gap-4 items-center">
+          <div class="w-16 h-16 rounded-2xl bg-emerald-500/20 flex items-center justify-center text-3xl">📅</div>
+          <div>
+            <h2 class="text-xl font-bold dark:text-white">Naji</h2>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 uppercase tracking-tighter">Assistant</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-green-500"></span>
+          <span class="text-sm font-medium dark:text-slate-300">Online</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="p-4 rounded-2xl bg-slate-100/50 dark:bg-white/5 space-y-1">
+          <p class="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-widest">Model</p>
+          <p class="text-sm font-semibold dark:text-white truncate">Gemini 2.5 Lite</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-100/50 dark:bg-white/5 space-y-1">
+          <p class="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-widest">Schedule</p>
+          <p class="text-sm font-semibold dark:text-white">Next check: 16:00</p>
+        </div>
+      </div>
+
+      <div class="space-y-3">
+        <p class="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-widest">Active Schedule</p>
+        <div class="flex gap-2">
+          <div class="px-3 py-1 rounded-lg bg-emerald-500/10 text-emerald-500 text-[10px] font-bold">Hourly Summary</div>
+          <div class="px-3 py-1 rounded-lg bg-emerald-500/10 text-emerald-500 text-[10px] font-bold">Daily Brief</div>
+        </div>
+      </div>
+
+      <div class="flex gap-2 pt-2">
+        <button class="flex-1 py-2 rounded-xl bg-emerald-500 text-white text-sm font-bold hover:bg-emerald-600 transition-colors">Manage Calendar</button>
+      </div>
+    </div>
+  </div>
+</div>

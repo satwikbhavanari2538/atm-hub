@@ -1,1 +1,60 @@
-<p>dashboard works!</p>
+<div class="space-y-6 animate-in fade-in duration-700">
+  <header class="flex justify-between items-center">
+    <div>
+      <h1 class="text-3xl font-bold dark:text-white">Dashboard</h1>
+      <p class="text-slate-500 dark:text-slate-400">System overview and Squad metrics.</p>
+    </div>
+    <div class="flex gap-3">
+      <div class="px-4 py-2 glass rounded-xl flex items-center gap-2">
+        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+        <span class="text-sm font-medium dark:text-slate-200">System Online</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Metrics Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="p-6 glass rounded-2xl space-y-2 hover:border-brand-primary/50 transition-colors cursor-default">
+      <p class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Active Agents</p>
+      <div class="flex items-end justify-between">
+        <h2 class="text-4xl font-bold dark:text-white">4</h2>
+        <span class="text-green-500 text-sm font-medium">100%</span>
+      </div>
+    </div>
+    
+    <div class="p-6 glass rounded-2xl space-y-2 hover:border-brand-primary/50 transition-colors cursor-default">
+      <p class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Tasks</p>
+      <div class="flex items-end justify-between">
+        <h2 class="text-4xl font-bold dark:text-white">0</h2>
+        <span class="text-slate-400 text-sm">Today</span>
+      </div>
+    </div>
+
+    <div class="p-6 glass rounded-2xl space-y-2 hover:border-brand-primary/50 transition-colors cursor-default">
+      <p class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Failures</p>
+      <div class="flex items-end justify-between">
+        <h2 class="text-4xl font-bold dark:text-white">0</h2>
+        <span class="text-slate-400 text-sm">Last 24h</span>
+      </div>
+    </div>
+
+    <div class="p-6 glass rounded-2xl space-y-2 hover:border-brand-primary/50 transition-colors cursor-default">
+      <p class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Throughput</p>
+      <div class="flex items-end justify-between">
+        <h2 class="text-4xl font-bold dark:text-white">0</h2>
+        <span class="text-slate-400 text-sm">req/min</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Activity Preview -->
+  <div class="glass rounded-2xl overflow-hidden">
+    <div class="p-6 border-b border-slate-200 dark:border-white/10 flex justify-between items-center">
+      <h3 class="text-lg font-bold dark:text-white">Recent Activity</h3>
+      <button routerLink="/activity" class="text-brand-primary text-sm font-semibold hover:underline">View All</button>
+    </div>
+    <div class="p-8 text-center text-slate-500 dark:text-slate-400">
+      No recent activity found. The Squad is standing by.
+    </div>
+  </div>
+</div>
