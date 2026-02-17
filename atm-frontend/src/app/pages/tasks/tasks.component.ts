@@ -52,10 +52,10 @@ export class TasksComponent implements OnInit {
   }
 
   loadTasks() {
-    this.apiService.getTasks().subscribe(tasks => {
-      this.todo = tasks.filter(t => t.status === 'pending');
-      this.inProgress = tasks.filter(t => t.status === 'running');
-      this.done = tasks.filter(t => t.status === 'completed' || t.status === 'failed');
+    this.apiService.getTasks().subscribe((tasks: any[]) => {
+      this.todo = tasks.filter((t: any) => t.status === 'pending');
+      this.inProgress = tasks.filter((t: any) => t.status === 'running');
+      this.done = tasks.filter((t: any) => t.status === 'completed' || t.status === 'failed');
     });
   }
 
