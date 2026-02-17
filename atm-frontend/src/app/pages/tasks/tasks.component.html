@@ -1,7 +1,7 @@
 <div class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 relative">
   <header class="flex justify-between items-center">
     <div>
-      <h1 class="text-3xl font-black dark:text-white tracking-tighter uppercase italic">Mission Control</h1>
+      <h1 class="text-3xl font-black dark:text-white tracking-tighter uppercase italic tracking-widest">Mission Control</h1>
       <p class="text-slate-500 dark:text-slate-400 font-medium tracking-tight">Deploying autonomous operations across the squad.</p>
     </div>
     <button (click)="openCreateModal()" class="bg-brand-primary text-white px-8 py-4 rounded-[1.5rem] font-black text-[10px] uppercase tracking-widest shadow-2xl shadow-indigo-500/40 hover:scale-105 active:scale-95 transition-all">
@@ -15,6 +15,7 @@
     <div class="flex flex-col gap-4">
       <h3 class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 px-4">Backlog ({{todo.length}})</h3>
       <div
+        id="todo-list"
         cdkDropList
         [cdkDropListData]="todo"
         class="min-h-[600px] bg-slate-100/30 dark:bg-white/[0.01] rounded-[2.5rem] p-4 flex flex-col gap-4 border border-dashed border-slate-200 dark:border-white/5"
@@ -26,7 +27,7 @@
             <span [class]="'text-[8px] font-black uppercase tracking-[0.2em] px-2 py-1 rounded-lg ' + getPriorityClass(task.priority)">
               {{task.priority}}
             </span>
-            <span class="text-2xl">{{getAgentEmoji(task.agent)}}</span>
+            <span class="text-2xl">{{getAgentEmoji(task.target_agent)}}</span>
           </div>
           <h4 class="font-black dark:text-white leading-tight uppercase tracking-tight italic">{{task.title}}</h4>
           <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-3 leading-relaxed">{{task.description}}</p>
@@ -38,6 +39,7 @@
     <div class="flex flex-col gap-4">
       <h3 class="text-[10px] font-black uppercase tracking-[0.3em] text-orange-500 px-4 italic">Executing ({{inProgress.length}})</h3>
       <div
+        id="progress-list"
         cdkDropList
         [cdkDropListData]="inProgress"
         class="min-h-[600px] bg-slate-100/30 dark:bg-white/[0.01] rounded-[2.5rem] p-4 flex flex-col gap-4 border border-dashed border-slate-200 dark:border-white/5"
@@ -51,7 +53,7 @@
             </span>
             <div class="flex items-center gap-2">
                <div class="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse"></div>
-               <span class="text-2xl">{{getAgentEmoji(task.agent)}}</span>
+               <span class="text-2xl">{{getAgentEmoji(task.target_agent)}}</span>
             </div>
           </div>
           <h4 class="font-black dark:text-white leading-tight uppercase tracking-tight italic">{{task.title}}</h4>
@@ -64,6 +66,7 @@
     <div class="flex flex-col gap-4">
       <h3 class="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-500 px-4 italic">Validating ({{review.length}})</h3>
       <div
+        id="review-list"
         cdkDropList
         [cdkDropListData]="review"
         class="min-h-[600px] bg-slate-100/30 dark:bg-white/[0.01] rounded-[2.5rem] p-4 flex flex-col gap-4 border border-dashed border-slate-200 dark:border-white/5"
@@ -75,7 +78,7 @@
             <span [class]="'text-[8px] font-black uppercase tracking-[0.2em] px-2 py-1 rounded-lg ' + getPriorityClass(task.priority)">
               {{task.priority}}
             </span>
-            <span class="text-2xl">{{getAgentEmoji(task.agent)}}</span>
+            <span class="text-2xl">{{getAgentEmoji(task.target_agent)}}</span>
           </div>
           <h4 class="font-black dark:text-white leading-tight uppercase tracking-tight italic">{{task.title}}</h4>
           <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-3 leading-relaxed">{{task.description}}</p>
@@ -87,6 +90,7 @@
     <div class="flex flex-col gap-4">
       <h3 class="text-[10px] font-black uppercase tracking-[0.3em] text-green-500 px-4 italic">Archived ({{done.length}})</h3>
       <div
+        id="done-list"
         cdkDropList
         [cdkDropListData]="done"
         class="min-h-[600px] bg-slate-100/30 dark:bg-white/[0.01] rounded-[2.5rem] p-4 flex flex-col gap-4 border border-dashed border-slate-200 dark:border-white/5"
@@ -98,7 +102,7 @@
             <span class="text-[8px] font-black uppercase tracking-[0.2em] px-2 py-1 rounded-lg bg-green-500/10 text-green-500">
               Completed
             </span>
-            <span class="text-2xl">{{getAgentEmoji(task.agent)}}</span>
+            <span class="text-2xl">{{getAgentEmoji(task.target_agent)}}</span>
           </div>
           <h4 class="font-black dark:text-white leading-tight uppercase tracking-tight italic line-through">{{task.title}}</h4>
         </div>
@@ -130,7 +134,7 @@
           </div>
           <div class="space-y-2">
             <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-2">Assign Agent</label>
-            <select formControlName="agent" class="w-full bg-slate-100 dark:bg-white/5 border border-transparent dark:border-white/5 rounded-2xl px-6 py-4 text-sm font-bold dark:text-white focus:border-brand-primary outline-none transition-all appearance-none cursor-pointer">
+            <select formControlName="target_agent" class="w-full bg-slate-100 dark:bg-white/5 border border-transparent dark:border-white/5 rounded-2xl px-6 py-4 text-sm font-bold dark:text-white focus:border-brand-primary outline-none transition-all appearance-none cursor-pointer">
               <option value="claw">👑 CLAW (ADMIN)</option>
               <option value="bar">🏗️ BAR (DEV)</option>
               <option value="noma">🔍 NOMA (RESEARCH)</option>
