@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+motor
+dnspython
+python-dotenv
+pydantic
