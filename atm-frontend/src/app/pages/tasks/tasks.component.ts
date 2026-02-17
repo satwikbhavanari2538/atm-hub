@@ -1,4 +1,4 @@
-import { Component, signal, OnInit } from '@angular/core';
+import { Component, signal, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
@@ -27,17 +27,20 @@ interface Task {
   styleUrl: './tasks.component.css'
 })
 export class TasksComponent implements OnInit {
-  todo: Task[] = [];
-  inProgress: Task[] = [];
-  review: Task[] = [];
-  done: Task[] = [];
+  todo = signal<Task[]>([]);
+  inProgress = signal<Task[]>([]);
+  review = signal<Task[]>([]);
+  done = signal<Task[]>([]);
 
   isModalOpen = signal(false);
   isEditMode = signal(false);
   taskForm: FormGroup;
   currentEditingTaskId: string | null = null;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService) {
+  private fb = inject(FormBuilder);
+  private apiService = inject(ApiService);
+
+  constructor() {
     this.taskForm = this.fb.group({
       title: ['', Validators.required],
       target_agent: ['claw', Validators.required],
@@ -52,10 +55,13 @@ export class TasksComponent implements OnInit {
   }
 
   loadTasks() {
-    this.apiService.getTasks().subscribe((tasks: any[]) => {
-      this.todo = tasks.filter((t: any) => t.status === 'pending');
-      this.inProgress = tasks.filter((t: any) => t.status === 'running');
-      this.done = tasks.filter((t: any) => t.status === 'completed' || t.status === 'failed');
+    this.apiService.getTasks().subscribe({
+      next: (tasks: any[]) => {
+        this.todo.set(tasks.filter((t: any) => t.status === 'pending'));
+        this.inProgress.set(tasks.filter((t: any) => t.status === 'running'));
+        this.done.set(tasks.filter((t: any) => t.status === 'completed' || t.status === 'failed'));
+      },
+      error: (err) => console.error('Failed to load tasks', err)
     });
   }
 
@@ -76,15 +82,19 @@ export class TasksComponent implements OnInit {
     if (this.taskForm.invalid) return;
 
     if (this.isEditMode() && this.currentEditingTaskId) {
-        this.apiService.updateTask(this.currentEditingTaskId, this.taskForm.value).subscribe(() => {
+        this.apiService.updateTask(this.currentEditingTaskId, this.taskForm.value).subscribe({
+          next: () => {
             this.loadTasks();
             this.closeModal();
+          }
         });
     } else {
         const taskData = { ...this.taskForm.value, status: 'pending' };
-        this.apiService.createTask(taskData).subscribe(() => {
+        this.apiService.createTask(taskData).subscribe({
+          next: () => {
             this.loadTasks();
             this.closeModal();
+          }
         });
     }
   }
@@ -96,7 +106,8 @@ export class TasksComponent implements OnInit {
 
   drop(event: CdkDragDrop<Task[]>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      const data = event.container.data;
+      moveItemInArray(data, event.previousIndex, event.currentIndex);
     } else {
       const task = event.previousContainer.data[event.previousIndex];
       const newStatus = this.getStatusFromContainerId(event.container.id);
@@ -109,12 +120,14 @@ export class TasksComponent implements OnInit {
       );
 
       if (task._id) {
-          this.apiService.updateTask(task._id, { status: newStatus }).subscribe(() => {
+          this.apiService.updateTask(task._id, { status: newStatus }).subscribe({
+            next: () => {
               if (newStatus === 'running') {
                   const missionMessage = `KING CLAW DIRECTIVE: ${task.title}. Agent ${task.target_agent.toUpperCase()} initiating now. Directive: ${task.message || 'Standard execution'}.`;
                   console.log(missionMessage);
-                  // Discord/WhatsApp integration would trigger here
               }
+              this.loadTasks(); // Refresh to handle auto-deletion of 'done' tasks
+            }
           });
       }
     }
