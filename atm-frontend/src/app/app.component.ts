@@ -16,13 +16,16 @@ export class AppComponent {
   title = 'King Claw';
   showSidebar = true;
 
-  get isCollapsed() { return this.sidebarService.isCollapsed(); }
-
   constructor(private router: Router, private sidebarService: SidebarService) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
-      this.showSidebar = event.url !== '/login';
+      // Check if current URL starts with /login
+      this.showSidebar = !event.urlAfterRedirects.includes('/login');
     });
+  }
+
+  get isCollapsed() {
+    return this.sidebarService.isCollapsed();
   }
 }

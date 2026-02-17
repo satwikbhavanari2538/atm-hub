@@ -3,7 +3,11 @@
   <app-sidebar *ngIf="showSidebar"></app-sidebar>
 
   <!-- Main Content -->
-  <main class="flex-1 overflow-x-hidden" [ngClass]="{'pl-64': showSidebar}">
+  <main class="flex-1 overflow-x-hidden transition-all duration-300" 
+        [ngClass]="{
+          'pl-64': showSidebar && !isCollapsed, 
+          'pl-20': showSidebar && isCollapsed
+        }">
     <div [ngClass]="{'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8': showSidebar}">
       <router-outlet></router-outlet>
     </div>
