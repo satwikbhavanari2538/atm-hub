@@ -3,6 +3,7 @@ import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
+import { SidebarService } from './services/sidebar.service';
 
 @Component({
   selector: 'app-root',
@@ -12,10 +13,12 @@ import { filter } from 'rxjs/operators';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'atm-frontend';
+  title = 'King Claw';
   showSidebar = true;
 
-  constructor(private router: Router) {
+  get isCollapsed() { return this.sidebarService.isCollapsed(); }
+
+  constructor(private router: Router, private sidebarService: SidebarService) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
