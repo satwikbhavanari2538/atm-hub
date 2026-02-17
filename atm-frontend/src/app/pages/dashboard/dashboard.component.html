@@ -1,60 +1,64 @@
 <div class="space-y-6 animate-in fade-in duration-700">
   <header class="flex justify-between items-center">
     <div>
-      <h1 class="text-3xl font-bold dark:text-white">Dashboard</h1>
+      <h1 class="text-3xl font-bold dark:text-white tracking-tight">Dashboard</h1>
       <p class="text-slate-500 dark:text-slate-400">System overview and Squad metrics.</p>
     </div>
     <div class="flex gap-3">
-      <div class="px-4 py-2 glass rounded-xl flex items-center gap-2">
+      <div class="px-4 py-2 glass rounded-2xl flex items-center gap-2 border border-slate-200 dark:border-white/5 shadow-sm">
         <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-        <span class="text-sm font-medium dark:text-slate-200">System Online</span>
+        <span class="text-sm font-bold uppercase tracking-tighter dark:text-slate-200">System Online</span>
       </div>
     </div>
   </header>
 
   <!-- Metrics Grid -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-    <div class="p-6 glass rounded-2xl space-y-2 hover:border-brand-primary/50 transition-colors cursor-default">
-      <p class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Active Agents</p>
-      <div class="flex items-end justify-between">
-        <h2 class="text-4xl font-bold dark:text-white">4</h2>
-        <span class="text-green-500 text-sm font-medium">100%</span>
+    <div class="p-8 glass rounded-[2rem] border border-slate-200 dark:border-white/5 space-y-2 hover:scale-[1.02] transition-all cursor-default">
+      <p class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Active Agents</p>
+      <div class="flex items-end justify-between pt-2">
+        <h2 class="text-5xl font-black dark:text-white italic tracking-tighter">04</h2>
+        <span class="text-green-500 text-xs font-bold bg-green-500/10 px-2 py-1 rounded-lg">100%</span>
       </div>
     </div>
     
-    <div class="p-6 glass rounded-2xl space-y-2 hover:border-brand-primary/50 transition-colors cursor-default">
-      <p class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Tasks</p>
-      <div class="flex items-end justify-between">
-        <h2 class="text-4xl font-bold dark:text-white">0</h2>
-        <span class="text-slate-400 text-sm">Today</span>
+    <div class="p-8 glass rounded-[2rem] border border-slate-200 dark:border-white/5 space-y-2 hover:scale-[1.02] transition-all cursor-default">
+      <p class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Total Tasks</p>
+      <div class="flex items-end justify-between pt-2">
+        <h2 class="text-5xl font-black dark:text-white italic tracking-tighter">00</h2>
+        <span class="text-slate-400 text-[10px] font-bold uppercase">Today</span>
       </div>
     </div>
 
-    <div class="p-6 glass rounded-2xl space-y-2 hover:border-brand-primary/50 transition-colors cursor-default">
-      <p class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Failures</p>
-      <div class="flex items-end justify-between">
-        <h2 class="text-4xl font-bold dark:text-white">0</h2>
-        <span class="text-slate-400 text-sm">Last 24h</span>
+    <div class="p-8 glass rounded-[2rem] border border-slate-200 dark:border-white/5 space-y-2 hover:scale-[1.02] transition-all cursor-default">
+      <p class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Failures</p>
+      <div class="flex items-end justify-between pt-2">
+        <h2 class="text-5xl font-black dark:text-white italic tracking-tighter text-red-500/20">00</h2>
+        <span class="text-slate-400 text-[10px] font-bold uppercase">24h</span>
       </div>
     </div>
 
-    <div class="p-6 glass rounded-2xl space-y-2 hover:border-brand-primary/50 transition-colors cursor-default">
-      <p class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Throughput</p>
-      <div class="flex items-end justify-between">
-        <h2 class="text-4xl font-bold dark:text-white">0</h2>
-        <span class="text-slate-400 text-sm">req/min</span>
+    <div class="p-8 glass rounded-[2rem] border border-slate-200 dark:border-white/5 space-y-2 hover:scale-[1.02] transition-all cursor-default">
+      <p class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Throughput</p>
+      <div class="flex items-end justify-between pt-2">
+        <h2 class="text-5xl font-black dark:text-white italic tracking-tighter">0.0</h2>
+        <span class="text-slate-400 text-[10px] font-bold uppercase italic">RPM</span>
       </div>
     </div>
   </div>
 
   <!-- Recent Activity Preview -->
-  <div class="glass rounded-2xl overflow-hidden">
-    <div class="p-6 border-b border-slate-200 dark:border-white/10 flex justify-between items-center">
-      <h3 class="text-lg font-bold dark:text-white">Recent Activity</h3>
-      <button routerLink="/activity" class="text-brand-primary text-sm font-semibold hover:underline">View All</button>
+  <div class="glass rounded-[2.5rem] border border-slate-200 dark:border-white/5 overflow-hidden">
+    <div class="px-8 py-6 border-b border-slate-200 dark:border-white/10 flex justify-between items-center bg-slate-50/50 dark:bg-white/[0.02]">
+      <h3 class="text-lg font-black dark:text-white uppercase tracking-wider">Recent Activity</h3>
+      <button routerLink="/activity" class="text-brand-primary text-[10px] font-black uppercase tracking-widest bg-brand-primary/10 px-4 py-2 rounded-xl hover:bg-brand-primary/20 transition-all">View Full Logs</button>
     </div>
-    <div class="p-8 text-center text-slate-500 dark:text-slate-400">
-      No recent activity found. The Squad is standing by.
+    <div class="p-16 text-center">
+      <div class="w-12 h-12 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center mx-auto mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-slate-300"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+      </div>
+      <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">No signals detected</p>
+      <p class="text-xs text-slate-500 mt-1 font-medium italic">The Squad is currently standing by in maintenance mode.</p>
     </div>
   </div>
 </div>
