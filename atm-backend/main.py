@@ -1,12 +1,22 @@
 from fastapi import FastAPI, HTTPException, Body, status
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
+from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 from database import get_tasks_collection, get_agents_collection
 from models import AgentTask, AgentStatus
 from datetime import datetime
 
 app = FastAPI(title="ATM API")
+
+# Configure CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # Allow all origins for alpha, tighten for prod
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/tasks", response_description="Add new task", response_model=AgentTask)
 async def create_task(task: AgentTask = Body(...)):
