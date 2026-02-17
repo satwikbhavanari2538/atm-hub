@@ -113,6 +113,7 @@ export class TasksComponent implements OnInit {
               if (newStatus === 'running') {
                   const missionMessage = `KING CLAW DIRECTIVE: ${task.title}. Agent ${task.target_agent.toUpperCase()} initiating now. Directive: ${task.message || 'Standard execution'}.`;
                   console.log(missionMessage);
+                  // Discord/WhatsApp integration would trigger here
               }
           });
       }
