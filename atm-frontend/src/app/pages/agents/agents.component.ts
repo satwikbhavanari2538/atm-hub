@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, OnDestroy } from '@angular/core';
+import { Component, signal, OnInit, inject, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 
@@ -32,8 +32,7 @@ export class AgentsComponent implements OnInit, OnDestroy {
     { agent_id: 'naji', name: 'NAJI', emoji: '📅', role: 'Personal Liaison', model: 'GEMINI 2.5 LITE', is_online: true, schedule: 'NEXT SYNC: 16:00', load: 'OPTIMAL' },
   ]);
   private interval: any;
-
-  constructor(private apiService: ApiService) {}
+  private apiService = inject(ApiService);
 
   ngOnInit() {
     this.loadAgentStatus();

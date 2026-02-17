@@ -1,4 +1,4 @@
-import { Component, signal, OnInit } from '@angular/core';
+import { Component, signal, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
@@ -40,7 +40,7 @@ export class ChatComponent implements OnInit {
     { id: '1', sender: 'agent', agentId: 'claw', text: 'Tactical link established with King Claw. How can I assist, Satwik?', timestamp: new Date() }
   ];
 
-  constructor(private apiService: ApiService) {}
+  private apiService = inject(ApiService);
 
   get selectedAgent() {
     return this.agents.find(a => a.id === this.selectedAgentId());
@@ -63,7 +63,8 @@ export class ChatComponent implements OnInit {
             if (live) a.online = live.is_online;
           });
         }
-      }
+      },
+      error: (err) => console.error('Chat agents failed', err)
     });
   }
 
@@ -86,7 +87,6 @@ export class ChatComponent implements OnInit {
     const directiveText = this.newMessage;
     this.newMessage = '';
 
-    // Simulate Agent Directive Receipt
     setTimeout(() => {
       const response: Message = {
         id: (Date.now() + 1).toString(),

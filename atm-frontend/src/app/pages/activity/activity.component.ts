@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, signal, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 
@@ -20,16 +20,16 @@ interface ActivityLog {
 })
 export class ActivityComponent implements OnInit {
   logs = signal<ActivityLog[]>([]);
-
-  constructor(private apiService: ApiService) {}
+  private apiService = inject(ApiService);
 
   ngOnInit() {
     this.loadActivity();
   }
 
   loadActivity() {
-    this.apiService.getActivity().subscribe(data => {
-      this.logs.set(data);
+    this.apiService.getActivity().subscribe({
+      next: (data) => this.logs.set(data),
+      error: (err) => console.error('Activity failed', err)
     });
   }
 
