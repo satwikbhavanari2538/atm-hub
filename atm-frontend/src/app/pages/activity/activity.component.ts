@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ApiService } from '../../services/api.service';
 
 interface ActivityLog {
   id: string;
   timestamp: Date;
-  agent: 'claw' | 'bar' | 'noma' | 'naji';
+  agent: string;
   action: string;
-  status: 'success' | 'warning' | 'error';
+  status: string;
   duration: string;
 }
 
@@ -17,14 +18,20 @@ interface ActivityLog {
   templateUrl: './activity.component.html',
   styleUrl: './activity.component.css'
 })
-export class ActivityComponent {
-  logs: ActivityLog[] = [
-    { id: 'ACT-001', timestamp: new Date(), agent: 'bar', action: 'Deployed Phase 3 of ATM Hub', status: 'success', duration: '2.4s' },
-    { id: 'ACT-002', timestamp: new Date(Date.now() - 3600000), agent: 'claw', action: 'Verified security handshake for Discord', status: 'success', duration: '0.8s' },
-    { id: 'ACT-003', timestamp: new Date(Date.now() - 7200000), agent: 'noma', action: 'Market research for real-time charting', status: 'warning', duration: '12.1s' },
-    { id: 'ACT-004', timestamp: new Date(Date.now() - 86400000), agent: 'naji', action: 'Cleaned up project intakes in Brains folder', status: 'success', duration: '5.2s' },
-    { id: 'ACT-005', timestamp: new Date(Date.now() - 172800000), agent: 'bar', action: 'Database connection failed: Timeout', status: 'error', duration: '30s' },
-  ];
+export class ActivityComponent implements OnInit {
+  logs = signal<ActivityLog[]>([]);
+
+  constructor(private apiService: ApiService) {}
+
+  ngOnInit() {
+    this.loadActivity();
+  }
+
+  loadActivity() {
+    this.apiService.getActivity().subscribe(data => {
+      this.logs.set(data);
+    });
+  }
 
   getStatusClass(status: string): string {
     switch (status) {
@@ -36,7 +43,7 @@ export class ActivityComponent {
   }
 
   getAgentEmoji(agent: string): string {
-    switch (agent) {
+    switch (agent.toLowerCase()) {
       case 'claw': return '👑';
       case 'bar': return '🏗️';
       case 'noma': return '🔍';

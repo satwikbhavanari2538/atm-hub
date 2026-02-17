@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ApiService } from '../../services/api.service';
 
 interface AgentUsage {
   agent: string;
@@ -17,14 +18,15 @@ interface AgentUsage {
   templateUrl: './usage.component.html',
   styleUrl: './usage.component.css'
 })
-export class UsageComponent {
-  agentUsage: AgentUsage[] = [
-    { agent: 'Claw', emoji: '👑', model: 'Gemini 3 Flash', runs: 124, computeTime: '12m 45s', estimatedCost: '$0.004' },
-    { agent: 'Bar', emoji: '🏗️', model: 'Claude 3.5 Sonnet', runs: 82, computeTime: '24m 12s', estimatedCost: '$0.28' },
-    { agent: 'Noma', emoji: '🔍', model: 'OpenRouter Auto', runs: 45, computeTime: '45m 30s', estimatedCost: '$0.05' },
-    { agent: 'Naji', emoji: '📅', model: 'Gemini 2.5 Lite', runs: 210, computeTime: '5m 10s', estimatedCost: '$0.001' },
-  ];
+export class UsageComponent implements OnInit {
+  agentUsage = signal<AgentUsage[]>([]);
+  totalCost = signal('$0.00');
+  totalRuns = signal(0);
 
-  totalCost = '$0.335';
-  totalRuns = 461;
+  constructor(private apiService: ApiService) {}
+
+  ngOnInit() {
+    // Logic for usage metrics will be implemented in Phase 7
+    // For now, initializing with empty live data
+  }
 }

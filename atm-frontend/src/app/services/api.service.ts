@@ -26,6 +26,10 @@ export class ApiService {
     return this.http.get<any[]>(`${this.baseUrl}/agents`);
   }
 
+  getActivity(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/activity`);
+  }
+
   getStatus(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/`);
   }
