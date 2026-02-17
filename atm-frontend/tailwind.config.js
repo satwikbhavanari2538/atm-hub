@@ -7,13 +7,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'brand-primary': '#6366f1', // Modern indigo
+        'brand-primary': '#6366f1',
         'brand-black': '#050505',
-        'slate-950': '#0a0a0a',
       },
-      backgroundImage: {
-        'gradient-dark': 'linear-gradient(145deg, #000000, #111111)',
-      }
     },
   },
   plugins: [],

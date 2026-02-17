@@ -11,9 +11,11 @@ export class ThemeService {
       const storedTheme = localStorage.getItem('theme');
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       
-      this.isDarkMode.set(storedTheme === 'dark' || (!storedTheme && prefersDark));
+      // Initial state
+      const initialState = storedTheme === 'dark' || (!storedTheme && prefersDark);
+      this.isDarkMode.set(initialState);
       
-      // Reactive effect to update DOM
+      // Reactive effect to update DOM whenever signal changes
       effect(() => {
         this.applyTheme(this.isDarkMode());
       });
