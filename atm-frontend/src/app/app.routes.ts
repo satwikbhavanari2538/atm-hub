@@ -7,15 +7,23 @@ import { SkillsComponent } from './pages/skills/skills.component';
 import { UsageComponent } from './pages/usage/usage.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { LoginComponent } from './pages/login/login.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'agents', component: AgentsComponent },
-  { path: 'tasks', component: TasksComponent },
-  { path: 'activity', component: ActivityComponent },
-  { path: 'skills', component: SkillsComponent },
-  { path: 'usage', component: UsageComponent },
-  { path: 'settings', component: SettingsComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' }
+  { 
+    path: '', 
+    canActivate: [authGuard],
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'agents', component: AgentsComponent },
+      { path: 'tasks', component: TasksComponent },
+      { path: 'activity', component: ActivityComponent },
+      { path: 'skills', component: SkillsComponent },
+      { path: 'usage', component: UsageComponent },
+      { path: 'settings', component: SettingsComponent },
+      { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
+    ]
+  },
+  { path: '**', redirectTo: '/login' }
 ];
