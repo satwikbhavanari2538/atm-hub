@@ -1,1 +1,41 @@
-<p>skills works!</p>
+<div class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+  <header class="flex justify-between items-end">
+    <div>
+      <h1 class="text-3xl font-black dark:text-white tracking-tighter uppercase">Skill Registry</h1>
+      <p class="text-slate-500 dark:text-slate-400 font-medium italic">Defined capabilities used for autonomous task routing.</p>
+    </div>
+    <button class="bg-brand-primary text-white px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg shadow-indigo-500/20 hover:scale-105 transition-all">
+      Register Skill
+    </button>
+  </header>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-6">
+    <div *ngFor="let skill of skills" class="glass rounded-[2rem] border border-slate-200 dark:border-white/5 p-8 flex flex-col gap-6 hover:border-brand-primary/40 transition-all group">
+      <div class="flex justify-between items-start">
+        <span [class]="'px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ' + getCategoryClass(skill.category)">
+          {{skill.category}}
+        </span>
+        <div class="flex items-center gap-1.5">
+          <div [class]="'w-1.5 h-1.5 rounded-full bg-current ' + getStatusClass(skill.status)"></div>
+          <span [class]="'text-[9px] font-black uppercase tracking-widest ' + getStatusClass(skill.status)">{{skill.status}}</span>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <h3 class="text-xl font-black dark:text-white leading-tight uppercase italic tracking-tighter">{{skill.name}}</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{{skill.description}}</p>
+      </div>
+
+      <div class="pt-4 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+        <div class="flex -space-x-2">
+          <div *ngFor="let agent of skill.assignedAgents" 
+               class="w-8 h-8 rounded-full bg-slate-200 dark:bg-white/10 border-2 border-white dark:border-zinc-900 flex items-center justify-center text-xs font-black dark:text-white"
+               [title]="agent">
+            {{agent.charAt(0)}}
+          </div>
+        </div>
+        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">{{skill.id}}</span>
+      </div>
+    </div>
+  </div>
+</div>
