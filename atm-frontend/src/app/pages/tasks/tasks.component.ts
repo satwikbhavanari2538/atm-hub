@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
@@ -7,12 +7,14 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { ApiService } from '../../services/api.service';
 
 interface Task {
-  id: string;
+  _id?: string;
   title: string;
   description: string;
-  agent: 'claw' | 'bar' | 'noma' | 'naji';
+  target_agent: 'claw' | 'bar' | 'noma' | 'naji';
+  status: 'pending' | 'running' | 'completed' | 'failed';
   priority: 'low' | 'medium' | 'high';
   message?: string;
 }
@@ -24,45 +26,48 @@ interface Task {
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css'
 })
-export class TasksComponent {
-  todo: Task[] = [
-    { id: '1', title: 'Research Angular 19', description: 'Analyze new hydration features.', agent: 'noma', priority: 'medium' },
-    { id: '2', title: 'Fix Auth Pipe', description: 'Resolve token expiration bug.', agent: 'bar', priority: 'high' }
-  ];
-
-  inProgress: Task[] = [
-    { id: '3', title: 'ATM Shell Build', description: 'Implement sidebar and routing.', agent: 'bar', priority: 'high' }
-  ];
-
+export class TasksComponent implements OnInit {
+  todo: Task[] = [];
+  inProgress: Task[] = [];
   review: Task[] = [];
-  done: Task[] = [
-    { id: '4', title: 'Setup Discord HQ', description: 'Configure channels and permissions.', agent: 'claw', priority: 'high' }
-  ];
+  done: Task[] = [];
 
   isModalOpen = signal(false);
   isEditMode = signal(false);
   taskForm: FormGroup;
   currentEditingTaskId: string | null = null;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private apiService: ApiService) {
     this.taskForm = this.fb.group({
       title: ['', Validators.required],
-      agent: ['claw', Validators.required],
+      target_agent: ['claw', Validators.required],
       priority: ['medium', Validators.required],
       description: ['', Validators.required],
       message: ['']
     });
   }
 
+  ngOnInit() {
+    this.loadTasks();
+  }
+
+  loadTasks() {
+    this.apiService.getTasks().subscribe(tasks => {
+      this.todo = tasks.filter(t => t.status === 'pending');
+      this.inProgress = tasks.filter(t => t.status === 'running');
+      this.done = tasks.filter(t => t.status === 'completed' || t.status === 'failed');
+    });
+  }
+
   openCreateModal() {
     this.isEditMode.set(false);
-    this.taskForm.reset({ agent: 'claw', priority: 'medium' });
+    this.taskForm.reset({ target_agent: 'claw', priority: 'medium' });
     this.isModalOpen.set(true);
   }
 
   openEditModal(task: Task) {
     this.isEditMode.set(true);
-    this.currentEditingTaskId = task.id;
+    this.currentEditingTaskId = task._id || null;
     this.taskForm.patchValue(task);
     this.isModalOpen.set(true);
   }
@@ -70,31 +75,17 @@ export class TasksComponent {
   saveTask() {
     if (this.taskForm.invalid) return;
 
-    const taskData = this.taskForm.value;
-    
-    if (this.isEditMode()) {
-      this.updateExistingTask(taskData);
+    if (this.isEditMode() && this.currentEditingTaskId) {
+        this.apiService.updateTask(this.currentEditingTaskId, this.taskForm.value).subscribe(() => {
+            this.loadTasks();
+            this.closeModal();
+        });
     } else {
-      const newTask: Task = {
-        id: Math.random().toString(36).substr(2, 9),
-        ...taskData
-      };
-      this.todo.push(newTask);
-    }
-
-    this.closeModal();
-  }
-
-  updateExistingTask(data: any) {
-    const lists = [this.todo, this.inProgress, this.review, this.done];
-    for (let list of lists) {
-      const index = list.findIndex(t => t.id === this.currentEditingTaskId);
-      if (index > -1) {
-        // If agent changed, we might want to move it to Todo? 
-        // For now, just update the data in place.
-        list[index] = { ...list[index], ...data };
-        break;
-      }
+        const taskData = { ...this.taskForm.value, status: 'pending' };
+        this.apiService.createTask(taskData).subscribe(() => {
+            this.loadTasks();
+            this.closeModal();
+        });
     }
   }
 
@@ -107,13 +98,32 @@ export class TasksComponent {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
+      const task = event.previousContainer.data[event.previousIndex];
+      const newStatus = this.getStatusFromContainerId(event.container.id);
+      
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex
       );
+
+      if (task._id) {
+          this.apiService.updateTask(task._id, { status: newStatus }).subscribe(() => {
+              if (newStatus === 'running') {
+                  const missionMessage = `KING CLAW DIRECTIVE: ${task.title}. Agent ${task.target_agent.toUpperCase()} initiating now. Directive: ${task.message || 'Standard execution'}.`;
+                  console.log(missionMessage);
+              }
+          });
+      }
     }
+  }
+
+  getStatusFromContainerId(id: string): string {
+      if (id.includes('todo')) return 'pending';
+      if (id.includes('progress')) return 'running';
+      if (id.includes('done')) return 'completed';
+      return 'pending';
   }
 
   getAgentEmoji(agent: string): string {
