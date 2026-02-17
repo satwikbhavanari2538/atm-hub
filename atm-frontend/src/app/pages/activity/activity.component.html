@@ -4,10 +4,6 @@
       <h1 class="text-3xl font-black dark:text-white tracking-tighter uppercase">Activity History</h1>
       <p class="text-slate-500 dark:text-slate-400 font-medium italic">Audit log of all neural actions across the squad.</p>
     </div>
-    <div class="flex gap-2">
-      <button class="px-4 py-2 glass rounded-xl border border-slate-200 dark:border-white/5 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors">Export Logs</button>
-      <button class="px-4 py-2 glass rounded-xl border border-slate-200 dark:border-white/5 text-[10px] font-black uppercase tracking-widest text-red-500/50 hover:bg-red-500/10 transition-all">Clear All</button>
-    </div>
   </header>
 
   <div class="glass rounded-[2.5rem] border border-slate-200 dark:border-white/5 overflow-hidden">
@@ -22,7 +18,7 @@
         </tr>
       </thead>
       <tbody class="divide-y divide-slate-100 dark:divide-white/[0.03]">
-        <tr *ngFor="let log of logs" class="hover:bg-slate-100/30 dark:hover:bg-white/[0.01] transition-colors group">
+        <tr *ngFor="let log of logs()" class="hover:bg-slate-100/30 dark:hover:bg-white/[0.01] transition-colors group">
           <td class="px-8 py-6">
             <p class="text-xs font-black dark:text-slate-300 tracking-tight">{{log.timestamp | date:'MMM d, HH:mm'}}</p>
             <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{{log.id}}</p>
@@ -48,7 +44,7 @@
       </tbody>
     </table>
 
-    <div *ngIf="logs.length === 0" class="p-20 text-center">
+    <div *ngIf="logs().length === 0" class="p-20 text-center">
       <p class="text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest italic">No activity registered.</p>
     </div>
   </div>
