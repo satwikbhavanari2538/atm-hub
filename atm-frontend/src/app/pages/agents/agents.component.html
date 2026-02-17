@@ -55,7 +55,7 @@
       <div class="space-y-3">
         <div class="flex justify-between text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
           <span>System Load</span>
-          <span>{{agent.load}}</span>
+          <span>{{agent.load || '0%'}}</span>
         </div>
         <div class="w-full h-1.5 bg-slate-100 dark:bg-white/5 rounded-full overflow-hidden">
           <div [class]="'h-full transition-all duration-1000 ' + 
@@ -63,7 +63,7 @@
                         agent.agent_id === 'bar' ? 'bg-orange-500 w-[85%] animate-pulse' : 
                         agent.agent_id === 'noma' ? 'bg-blue-500 w-0' : 
                         'bg-emerald-500 w-full')"
-               [style.width]="agent.load === 'READY' || agent.load === 'OPTIMAL' ? '0%' : (agent.load.includes('/') ? '0%' : agent.load)">
+               [style.width]="(agent.load === 'READY' || agent.load === 'OPTIMAL') ? '0%' : ((agent.load && agent.load.includes('/')) ? '0%' : (agent.load || '0%'))">
           </div>
         </div>
       </div>
