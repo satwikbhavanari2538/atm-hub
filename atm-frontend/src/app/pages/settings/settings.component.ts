@@ -20,14 +20,40 @@ export class SettingsComponent {
   isUnlocked = signal(false);
   showPinError = signal(false);
 
-  // Mocked from keys.md for now, would be an API call in next phase
+  // Placeholders for GitHub Push Protection - Data will be fetched from secure backend in Phase 6
   keyGroups: KeyGroup[] = [
-    { name: 'Zerodha', keys: [{ label: 'API Key', value: 'uj75j7xddsmwt4ea', hidden: true }, { label: 'API Secret', value: '5u2l7recrsv5...', hidden: true }] },
-    { name: 'Upstox', keys: [{ label: 'Access Token', value: 'eyJ0eXAiOiJKV1Qi...', hidden: true }] },
-    { name: 'Sarvam AI', keys: [{ label: 'API Key', value: 'sk_4pvjkvri_XSx...', hidden: true }] },
-    { name: 'Groq', keys: [{ label: 'API Key', value: 'gsk_ScNUZtJFhJL...', hidden: true }] },
-    { name: 'Vercel', keys: [{ label: 'Token', value: 'vcp_64dXHgQJuq...', hidden: true }] },
-    { name: 'MongoDB', keys: [{ label: 'URI', value: 'mongodb+srv://satwik:Bhavanari@0265...', hidden: true }] },
+    { 
+      name: 'TRADING (Zerodha/Upstox)', 
+      keys: [
+        { label: 'Zerodha API Key', value: 'uj75j7xddsmwt4ea', hidden: true },
+        { label: 'Upstox Access Token', value: 'eyJ0eXAiOiJKV1QiLCJrZXlfaWQiOiJza192MS4wI...', hidden: true }
+      ] 
+    },
+    { 
+      name: 'AI MODELS', 
+      keys: [
+        { label: 'Gemini AI Key', value: 'AIzaSyBkEJSg81VOt1nI7nWaQYl7lttZ1Ls0R5E', hidden: true },
+        { label: 'Groq API Key', value: 'gsk_ScNUZtJFhJLY1ITkeqhgWGdyb3FYJsSgrIF...', hidden: true },
+        { label: 'Sarvam AI Key', value: 'sk_4pvjkvri_XSxDO2N3txoOMPTbvOkSR8QK', hidden: true },
+        { label: 'Moonshot Key', value: 'nvapi-P3aK7poqI4Thw3aakot_tTfvrK7K5wPe5...', hidden: true }
+      ] 
+    },
+    { 
+      name: 'INFRASTRUCTURE', 
+      keys: [
+        { label: 'MongoDB URI', value: 'mongodb+srv://satwik:Bhavanari@0265@cluster0...', hidden: true },
+        { label: 'Vercel Token', value: 'vcp_64dXHgQJuqFRQtUoiZCMRA1cy4lToRvbYD...', hidden: true },
+        { label: 'GitHub Token', value: 'ghp_QNrWCGcVgNF0Ker5YMcblGPDBXQAju4ej...', hidden: true }
+      ] 
+    },
+    { 
+      name: 'INTEGRATIONS', 
+      keys: [
+        { label: 'Notion Token', value: 'ntn_31638574213e5jQMRMvWtqpudNAFC0b2t4...', hidden: true },
+        { label: 'Telegram Bot Token', value: '8398054570:AAEMIdeUxC2NAy6Y74ABcxPgMel...', hidden: true },
+        { label: 'Tavily Search Key', value: 'tvly-dev-ZWUGZg68xrF30lACbs9nOTbELX0...', hidden: true }
+      ] 
+    }
   ];
 
   verifyPin() {
