@@ -1,1 +1,110 @@
-<p>tasks works!</p>
+<div class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+  <header class="flex justify-between items-center">
+    <div>
+      <h1 class="text-3xl font-black dark:text-white tracking-tighter uppercase">Task Board</h1>
+      <p class="text-slate-500 dark:text-slate-400 font-medium">Drag and drop tasks to manage Squad workload.</p>
+    </div>
+    <button class="bg-brand-primary text-white px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg shadow-indigo-500/20 hover:scale-105 transition-all">
+      Create Task
+    </button>
+  </header>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6" cdkDropListGroup>
+    
+    <!-- Todo Column -->
+    <div class="flex flex-col gap-4">
+      <div class="flex items-center justify-between px-2">
+        <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Backlog ({{todo.length}})</h3>
+      </div>
+      <div
+        cdkDropList
+        [cdkDropListData]="todo"
+        class="min-h-[500px] bg-slate-100/50 dark:bg-white/[0.02] rounded-[2rem] p-4 flex flex-col gap-4 border border-transparent dark:border-white/5"
+        (cdkDropListDropped)="drop($event)">
+        
+        <div *ngFor="let task of todo" cdkDrag class="p-6 glass rounded-3xl border border-slate-200 dark:border-white/5 space-y-4 cursor-grab active:cursor-grabbing hover:border-brand-primary/50 transition-colors group">
+          <div class="flex justify-between items-start">
+            <span [class]="'text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-lg ' + getPriorityClass(task.priority)">
+              {{task.priority}}
+            </span>
+            <span class="text-xl">{{getAgentEmoji(task.agent)}}</span>
+          </div>
+          <h4 class="font-black dark:text-white leading-tight">{{task.title}}</h4>
+          <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">{{task.description}}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- In Progress Column -->
+    <div class="flex flex-col gap-4">
+      <div class="flex items-center justify-between px-2">
+        <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-orange-500">In Progress ({{inProgress.length}})</h3>
+      </div>
+      <div
+        cdkDropList
+        [cdkDropListData]="inProgress"
+        class="min-h-[500px] bg-slate-100/50 dark:bg-white/[0.02] rounded-[2rem] p-4 flex flex-col gap-4 border border-transparent dark:border-white/5"
+        (cdkDropListDropped)="drop($event)">
+        
+        <div *ngFor="let task of inProgress" cdkDrag class="p-6 glass rounded-3xl border border-slate-200 dark:border-white/5 space-y-4 cursor-grab active:cursor-grabbing hover:border-brand-primary/50 transition-colors group border-l-4 border-l-orange-500">
+          <div class="flex justify-between items-start">
+            <span [class]="'text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-lg ' + getPriorityClass(task.priority)">
+              {{task.priority}}
+            </span>
+            <span class="text-xl">{{getAgentEmoji(task.agent)}}</span>
+          </div>
+          <h4 class="font-black dark:text-white leading-tight">{{task.title}}</h4>
+          <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">{{task.description}}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Review Column -->
+    <div class="flex flex-col gap-4">
+      <div class="flex items-center justify-between px-2">
+        <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-500">Validation ({{review.length}})</h3>
+      </div>
+      <div
+        cdkDropList
+        [cdkDropListData]="review"
+        class="min-h-[500px] bg-slate-100/50 dark:bg-white/[0.02] rounded-[2rem] p-4 flex flex-col gap-4 border border-transparent dark:border-white/5"
+        (cdkDropListDropped)="drop($event)">
+        
+        <div *ngFor="let task of review" cdkDrag class="p-6 glass rounded-3xl border border-slate-200 dark:border-white/5 space-y-4 cursor-grab active:cursor-grabbing hover:border-brand-primary/50 transition-colors group border-l-4 border-l-indigo-500">
+          <div class="flex justify-between items-start">
+            <span [class]="'text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-lg ' + getPriorityClass(task.priority)">
+              {{task.priority}}
+            </span>
+            <span class="text-xl">{{getAgentEmoji(task.agent)}}</span>
+          </div>
+          <h4 class="font-black dark:text-white leading-tight">{{task.title}}</h4>
+          <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">{{task.description}}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Done Column -->
+    <div class="flex flex-col gap-4">
+      <div class="flex items-center justify-between px-2">
+        <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-green-500">Completed ({{done.length}})</h3>
+      </div>
+      <div
+        cdkDropList
+        [cdkDropListData]="done"
+        class="min-h-[500px] bg-slate-100/50 dark:bg-white/[0.02] rounded-[2rem] p-4 flex flex-col gap-4 border border-transparent dark:border-white/5"
+        (cdkDropListDropped)="drop($event)">
+        
+        <div *ngFor="let task of done" cdkDrag class="p-6 glass rounded-3xl border border-slate-200 dark:border-white/5 space-y-4 cursor-grab active:cursor-grabbing hover:border-brand-primary/50 transition-colors group border-l-4 border-l-green-500 opacity-60">
+          <div class="flex justify-between items-start">
+            <span class="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-lg bg-green-500/10 text-green-500">
+              Done
+            </span>
+            <span class="text-xl">{{getAgentEmoji(task.agent)}}</span>
+          </div>
+          <h4 class="font-black dark:text-white leading-tight line-through">{{task.title}}</h4>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
