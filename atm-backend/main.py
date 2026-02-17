@@ -2,8 +2,8 @@ from fastapi import FastAPI, HTTPException, Body, status
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 from typing import List
-from .database import get_tasks_collection, get_agents_collection
-from .models import AgentTask, AgentStatus
+from database import get_tasks_collection, get_agents_collection
+from models import AgentTask, AgentStatus
 from datetime import datetime
 
 app = FastAPI(title="ATM API")
