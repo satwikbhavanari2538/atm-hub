@@ -39,13 +39,16 @@ class PyObjectId(ObjectId):
 class AgentTask(BaseModel):
     id: Optional[PyObjectId] = Field(None, alias="_id")
     target_agent: str # claw, bar, noma, naji
-    command: str
+    title: Optional[str] = None
+    command: Optional[str] = None
     status: str = "pending" # pending, running, completed, failed
     schedule_type: str = "immediate" # immediate, cron, once
     cron_expression: Optional[str] = None
     created_at: datetime = Field(default_factory=datetime.utcnow)
     started_at: Optional[datetime] = None
     finished_at: Optional[datetime] = None
+    description: Optional[str] = None
+    message: Optional[str] = None
     output: Optional[str] = None
     error: Optional[str] = None
 
