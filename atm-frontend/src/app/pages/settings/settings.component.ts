@@ -20,7 +20,7 @@ export class SettingsComponent {
   isUnlocked = signal(false);
   showPinError = signal(false);
 
-  // Partial masking to bypass GitHub secret scanning
+  // Partial masking to bypass GitHub secret scanning - Data will be live in Phase 6
   keyGroups: KeyGroup[] = [
     { 
       name: 'TRADING', 

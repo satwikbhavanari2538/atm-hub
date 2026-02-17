@@ -7,6 +7,7 @@ import { SkillsComponent } from './pages/skills/skills.component';
 import { UsageComponent } from './pages/usage/usage.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { LoginComponent } from './pages/login/login.component';
+import { ChatComponent } from './pages/chat/chat.component';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
@@ -17,6 +18,7 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'agents', component: AgentsComponent },
+      { path: 'chat', component: ChatComponent },
       { path: 'tasks', component: TasksComponent },
       { path: 'activity', component: ActivityComponent },
       { path: 'skills', component: SkillsComponent },

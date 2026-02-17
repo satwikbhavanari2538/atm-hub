@@ -6,45 +6,52 @@ from typing import List
 from database import get_tasks_collection, get_agents_collection
 from models import AgentTask, AgentStatus
 from datetime import datetime
+from bson import ObjectId
 
-app = FastAPI(title="ATM API")
+app = FastAPI(title="King Claw API")
 
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # Allow all origins for alpha, tighten for prod
+    allow_origins=["*"], # Tighten for prod
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-@app.post("/tasks", response_description="Add new task", response_model=AgentTask)
+@app.post("/tasks", response_model=AgentTask)
 async def create_task(task: AgentTask = Body(...)):
     tasks_collection = await get_tasks_collection()
-    task = jsonable_encoder(task)
-    new_task = await tasks_collection.insert_one(task)
+    task_dict = jsonable_encoder(task)
+    new_task = await tasks_collection.insert_one(task_dict)
     created_task = await tasks_collection.find_one({"_id": new_task.inserted_id})
-    return JSONResponse(status_code=status.HTTP_201_CREATED, content=created_task)
+    return created_task
 
-@app.get("/tasks", response_description="List all tasks", response_model=List[AgentTask])
+@app.patch("/tasks/{task_id}", response_model=AgentTask)
+async def update_task(task_id: str, updates: dict = Body(...)):
+    tasks_collection = await get_tasks_collection()
+    if not ObjectId.is_valid(task_id):
+        raise HTTPException(status_code=400, detail="Invalid task ID")
+    
+    result = await tasks_collection.update_one(
+        {"_id": ObjectId(task_id)}, {"$set": updates}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Task not found")
+        
+    updated_task = await tasks_collection.find_one({"_id": ObjectId(task_id)})
+    return updated_task
+
+@app.get("/tasks", response_model=List[AgentTask])
 async def list_tasks():
     tasks_collection = await get_tasks_collection()
-    tasks = await tasks_collection.find().to_list(1000)
-    return tasks
+    return await tasks_collection.find().to_list(1000)
 
-@app.get("/tasks/{id}", response_description="Get a single task", response_model=AgentTask)
-async def show_task(id: str):
-    tasks_collection = await get_tasks_collection()
-    if (task := await tasks_collection.find_one({"_id": id})) is not None:
-        return task
-    raise HTTPException(status_code=404, detail=f"Task {id} not found")
-
-@app.get("/agents", response_description="List all agents", response_model=List[AgentStatus])
+@app.get("/agents", response_model=List[AgentStatus])
 async def list_agents():
     agents_collection = await get_agents_collection()
-    agents = await agents_collection.find().to_list(100)
-    return agents
+    return await agents_collection.find().to_list(100)
 
 @app.get("/")
 async def root():
-    return {"message": "ATM Backend is Online"}
+    return {"message": "King Claw Backend is Online"}
