@@ -1,4 +1,4 @@
-import { Component, signal, OnInit, inject } from '@angular/core';
+import { Component, signal, OnInit, inject, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
@@ -26,7 +26,7 @@ interface Task {
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css'
 })
-export class TasksComponent implements OnInit {
+export class TasksComponent implements OnInit, OnDestroy {
   todo = signal<Task[]>([]);
   inProgress = signal<Task[]>([]);
   review = signal<Task[]>([]);
@@ -36,6 +36,7 @@ export class TasksComponent implements OnInit {
   isEditMode = signal(false);
   taskForm: FormGroup;
   currentEditingTaskId: string | null = null;
+  private pollInterval: any;
 
   private fb = inject(FormBuilder);
   private apiService = inject(ApiService);
@@ -52,6 +53,14 @@ export class TasksComponent implements OnInit {
 
   ngOnInit() {
     this.loadTasks();
+    // Establish polling for automatic UI sync
+    this.pollInterval = setInterval(() => this.loadTasks(), 5000);
+  }
+
+  ngOnDestroy() {
+    if (this.pollInterval) {
+      clearInterval(this.pollInterval);
+    }
   }
 
   loadTasks() {
