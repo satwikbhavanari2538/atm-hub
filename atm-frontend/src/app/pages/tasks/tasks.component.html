@@ -1,1 +1,37 @@
-<p>tasks works!</p>
+<div class="space-y-8 animate-in fade-in duration-700 p-8">
+  <header class="border-b border-border pb-6 flex justify-between items-end">
+    <div>
+      <h1 class="text-3xl font-bold tracking-tight text-foreground">Task Operations</h1>
+      <p class="text-muted-foreground mt-1 text-sm font-medium">Monitor and control ongoing agent assignments.</p>
+    </div>
+    <button class="btn btn-primary shadow-lg shadow-indigo-500/20 flex items-center gap-2">
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+      New Task
+    </button>
+  </header>
+
+  <!-- Task Filters -->
+  <div class="flex gap-2 overflow-x-auto pb-2">
+    <button class="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium shadow-md">All Tasks</button>
+    <button class="px-4 py-2 rounded-lg bg-surface border border-border text-muted-foreground hover:text-foreground hover:bg-surface-highlight text-sm font-medium transition-colors">Pending</button>
+    <button class="px-4 py-2 rounded-lg bg-surface border border-border text-muted-foreground hover:text-foreground hover:bg-surface-highlight text-sm font-medium transition-colors">In Progress</button>
+    <button class="px-4 py-2 rounded-lg bg-surface border border-border text-muted-foreground hover:text-foreground hover:bg-surface-highlight text-sm font-medium transition-colors">Completed</button>
+    <button class="px-4 py-2 rounded-lg bg-surface border border-border text-muted-foreground hover:text-foreground hover:bg-surface-highlight text-sm font-medium transition-colors">Failed</button>
+  </div>
+
+  <!-- Task List (Empty State Placeholder) -->
+  <div class="card overflow-hidden min-h-[400px] flex flex-col items-center justify-center text-center p-12">
+    <div class="w-16 h-16 rounded-full bg-surface-highlight flex items-center justify-center mb-4">
+      <svg class="w-8 h-8 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+      </svg>
+    </div>
+    <h3 class="text-lg font-semibold text-foreground mb-1">No Active Tasks</h3>
+    <p class="text-muted-foreground max-w-sm mb-6">The queue is currently empty. Dispatch a new task to get the squad moving.</p>
+    <button class="btn bg-surface border border-border hover:bg-surface-highlight text-foreground shadow-sm">
+      Refresh Queue
+    </button>
+  </div>
+</div>

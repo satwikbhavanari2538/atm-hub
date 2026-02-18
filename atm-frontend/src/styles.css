@@ -2,12 +2,74 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+@layer base {
+  :root {
+    /* Light Mode (Subtle Gray/Indigo Theme) */
+    --background: #f8fafc; /* slate-50 */
+    --surface: #ffffff;
+    --surface-highlight: #f1f5f9; /* slate-100 */
+    --border: #e2e8f0; /* slate-200 */
+    --primary: #4f46e5; /* indigo-600 */
+    --primary-foreground: #ffffff;
+    --muted: #f1f5f9; /* slate-100 */
+    --muted-foreground: #64748b; /* slate-500 */
+    --accent: #f1f5f9; /* slate-100 */
+    --accent-foreground: #0f172a; /* slate-900 */
+    
+    --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Dark Mode */
+  .dark {
+    --background: #020617; /* slate-950 */
+    --surface: #0f172a; /* slate-900 */
+    --surface-highlight: #1e293b; /* slate-800 */
+    --border: #1e293b; /* slate-800 */
+    --primary: #6366f1; /* indigo-500 */
+    --primary-foreground: #ffffff;
+    --muted: #1e293b; /* slate-800 */
+    --muted-foreground: #94a3b8; /* slate-400 */
+    --accent: #1e293b; /* slate-800 */
+    --accent-foreground: #f8fafc; /* slate-50 */
+  }
+
+  body {
+    @apply bg-[color:var(--background)] text-[color:var(--accent-foreground)] antialiased min-h-screen selection:bg-indigo-500 selection:text-white font-sans;
+  }
+
+  /* Custom Scrollbar for Chrome/Safari/Edge */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 dark:bg-slate-700 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-400 dark:bg-slate-600;
+  }
 }
 
-body {
-  margin: 0;
-  font-family: var(--font-family);
-  @apply bg-slate-50 text-slate-900;
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-indigo-500 disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2;
+  }
+  
+  .btn-primary {
+    @apply bg-[color:var(--primary)] text-[color:var(--primary-foreground)] shadow hover:bg-indigo-700 dark:hover:bg-indigo-600;
+  }
+
+  .btn-ghost {
+    @apply hover:bg-[color:var(--muted)] hover:text-[color:var(--accent-foreground)];
+  }
+
+  .card {
+    @apply rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] text-[color:var(--accent-foreground)] shadow-subtle;
+  }
 }
