@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = 'http://64.227.187.126:8001';
+  private baseUrl = 'https://frequencies-intranet-gained-monsters.trycloudflare.com';
 
   constructor(private http: HttpClient) { }
 
