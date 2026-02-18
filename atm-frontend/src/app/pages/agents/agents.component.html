@@ -1,185 +1,174 @@
-<div class="space-y-8 animate-in fade-in duration-700 p-8">
-  <header class="border-b border-border pb-6">
-    <h1 class="text-3xl font-bold tracking-tight text-foreground">Squad Management</h1>
-    <p class="text-muted-foreground mt-1 text-sm font-medium">View and manage agent capacities, skills, and live logs.</p>
+<div class="space-y-6 animate-in fade-in duration-700">
+  <header>
+    <h1 class="text-3xl font-bold dark:text-white">Squad Management</h1>
+    <p class="text-slate-500 dark:text-slate-400">View and manage agent capacities, skills, and live logs.</p>
   </header>
 
   <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
-    <!-- Agent Card: Claw (Admin) -->
-    <div class="card p-6 flex flex-col gap-6 hover:shadow-lg transition-all duration-300 group border-l-4 border-l-primary">
+    <!-- Agent Card: Claw -->
+    <div class="glass rounded-3xl p-8 flex flex-col gap-6 hover:shadow-2xl hover:shadow-brand-primary/5 transition-all group">
       <div class="flex justify-between items-start">
         <div class="flex gap-4 items-center">
-          <div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-3xl shadow-sm">👑</div>
+          <div class="w-16 h-16 rounded-2xl bg-indigo-500/20 flex items-center justify-center text-3xl">👑</div>
           <div>
-            <h2 class="text-xl font-bold text-foreground group-hover:text-primary transition-colors">Claw</h2>
-            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary">
-              Admin Agent
-            </span>
+            <h2 class="text-xl font-bold dark:text-white">Claw</h2>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-green-500/10 text-green-500 uppercase tracking-tighter">Admin Agent</span>
           </div>
         </div>
         <div class="flex flex-col items-end">
-          <div class="flex items-center gap-2 px-2 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-            <span class="relative flex h-2 w-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400">Online</span>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+            <span class="text-sm font-medium dark:text-slate-300">Online</span>
           </div>
-          <span class="text-[10px] text-muted-foreground mt-1 font-mono">Lat: 44ms</span>
+          <span class="text-[10px] text-slate-400 mt-1 uppercase font-bold tracking-widest">Lat: 44ms</span>
         </div>
       </div>
 
       <div class="grid grid-cols-2 gap-4">
-        <div class="p-3 rounded-lg bg-surface-highlight border border-border">
-          <p class="text-[10px] uppercase font-bold text-muted-foreground tracking-wider mb-1">Model</p>
-          <p class="text-sm font-semibold text-foreground truncate">Gemini 3 Flash</p>
+        <div class="p-4 rounded-2xl bg-slate-100/50 dark:bg-white/5 space-y-1">
+          <p class="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-widest">Model</p>
+          <p class="text-sm font-semibold dark:text-white truncate">Gemini 3 Flash</p>
         </div>
-        <div class="p-3 rounded-lg bg-surface-highlight border border-border">
-          <p class="text-[10px] uppercase font-bold text-muted-foreground tracking-wider mb-1">Capacity</p>
-          <p class="text-sm font-semibold text-foreground">4 Concurrent</p>
+        <div class="p-4 rounded-2xl bg-slate-100/50 dark:bg-white/5 space-y-1">
+          <p class="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-widest">Capacity</p>
+          <p class="text-sm font-semibold dark:text-white">4 Concurrent</p>
         </div>
       </div>
 
       <div class="space-y-2">
-        <div class="flex justify-between text-xs font-bold uppercase tracking-wider text-muted-foreground">
+        <div class="flex justify-between text-xs font-bold uppercase tracking-widest text-slate-400">
           <span>Active Tasks</span>
           <span>0/4</span>
         </div>
-        <div class="w-full h-1.5 bg-surface-highlight rounded-full overflow-hidden border border-border">
-          <div class="bg-primary h-full transition-all duration-1000" style="width: 0%"></div>
+        <div class="w-full h-2 bg-slate-200 dark:bg-white/5 rounded-full overflow-hidden">
+          <div class="bg-brand-primary h-full transition-all duration-1000" style="width: 0%"></div>
         </div>
       </div>
 
-      <div class="flex gap-3 pt-2 mt-auto">
-        <button class="btn btn-primary flex-1 shadow-md shadow-indigo-500/20">View Logs</button>
-        <button class="btn bg-surface border border-border hover:bg-surface-highlight text-foreground shadow-sm">Skills</button>
+      <div class="flex gap-2 pt-2">
+        <button class="flex-1 py-2 rounded-xl bg-brand-primary text-white text-sm font-bold hover:bg-brand-primary/90 transition-colors">View Logs</button>
+        <button class="px-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 dark:text-white text-sm font-bold hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">Skills</button>
       </div>
     </div>
 
-    <!-- Agent Card: Bar (Dev) -->
-    <div class="card p-6 flex flex-col gap-6 hover:shadow-lg transition-all duration-300 group border-l-4 border-l-orange-500">
+    <!-- Agent Card: Bar -->
+    <div class="glass rounded-3xl p-8 flex flex-col gap-6 hover:shadow-2xl hover:shadow-brand-primary/5 transition-all group border-l-4 border-l-orange-500">
       <div class="flex justify-between items-start">
         <div class="flex gap-4 items-center">
-          <div class="w-14 h-14 rounded-xl bg-orange-500/10 flex items-center justify-center text-3xl shadow-sm">🏗️</div>
+          <div class="w-16 h-16 rounded-2xl bg-orange-500/20 flex items-center justify-center text-3xl">🏗️</div>
           <div>
-            <h2 class="text-xl font-bold text-foreground group-hover:text-orange-500 transition-colors">Bar</h2>
-            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-orange-500/10 text-orange-600 dark:text-orange-400">
-              Developer
-            </span>
+            <h2 class="text-xl font-bold dark:text-white">Bar</h2>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-500 uppercase tracking-tighter">Developer</span>
           </div>
         </div>
         <div class="flex flex-col items-end">
-          <div class="flex items-center gap-2 px-2 py-1 rounded-full bg-surface-highlight border border-border">
-            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            <span class="text-xs font-semibold text-muted-foreground">Idle</span>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-green-500"></span>
+            <span class="text-sm font-medium dark:text-slate-300">Idle</span>
           </div>
         </div>
       </div>
 
       <div class="grid grid-cols-2 gap-4">
-        <div class="p-3 rounded-lg bg-surface-highlight border border-border">
-          <p class="text-[10px] uppercase font-bold text-muted-foreground tracking-wider mb-1">Model</p>
-          <p class="text-sm font-semibold text-foreground truncate">Claude 3.5 Sonnet</p>
+        <div class="p-4 rounded-2xl bg-slate-100/50 dark:bg-white/5 space-y-1">
+          <p class="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-widest">Model</p>
+          <p class="text-sm font-semibold dark:text-white truncate">Claude 3.5 Sonnet</p>
         </div>
-        <div class="p-3 rounded-lg bg-surface-highlight border border-border">
-          <p class="text-[10px] uppercase font-bold text-muted-foreground tracking-wider mb-1">Stack</p>
-          <p class="text-sm font-semibold text-foreground">Full-Stack</p>
+        <div class="p-4 rounded-2xl bg-slate-100/50 dark:bg-white/5 space-y-1">
+          <p class="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-widest">Stack</p>
+          <p class="text-sm font-semibold dark:text-white">Full-Stack</p>
         </div>
       </div>
 
       <div class="space-y-2">
-        <div class="flex justify-between text-xs font-bold uppercase tracking-wider text-muted-foreground">
+        <div class="flex justify-between text-xs font-bold uppercase tracking-widest text-slate-400">
           <span>Processing ATM Backend</span>
-          <span class="text-orange-500">85%</span>
+          <span>85%</span>
         </div>
-        <div class="w-full h-1.5 bg-surface-highlight rounded-full overflow-hidden border border-border">
-          <div class="bg-orange-500 h-full animate-pulse shadow-[0_0_10px_rgba(249,115,22,0.5)]" style="width: 85%"></div>
+        <div class="w-full h-2 bg-slate-200 dark:bg-white/5 rounded-full overflow-hidden">
+          <div class="bg-orange-500 h-full animate-pulse" style="width: 85%"></div>
         </div>
       </div>
 
-      <div class="flex gap-3 pt-2 mt-auto">
-        <button class="btn bg-orange-500 text-white hover:bg-orange-600 flex-1 shadow-md shadow-orange-500/20 border-none">View Logs</button>
-        <button class="btn bg-surface border border-border hover:bg-surface-highlight text-foreground shadow-sm">Terminal</button>
+      <div class="flex gap-2 pt-2">
+        <button class="flex-1 py-2 rounded-xl bg-orange-500 text-white text-sm font-bold hover:bg-orange-600 transition-colors">View Logs</button>
+        <button class="px-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 dark:text-white text-sm font-bold hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">Terminal</button>
       </div>
     </div>
 
-    <!-- Agent Card: Noma (Research) -->
-    <div class="card p-6 flex flex-col gap-6 hover:shadow-lg transition-all duration-300 group border-l-4 border-l-blue-500">
+    <!-- Agent Card: Noma -->
+    <div class="glass rounded-3xl p-8 flex flex-col gap-6 hover:shadow-2xl hover:shadow-brand-primary/5 transition-all group border-l-4 border-l-blue-500">
       <div class="flex justify-between items-start">
         <div class="flex gap-4 items-center">
-          <div class="w-14 h-14 rounded-xl bg-blue-500/10 flex items-center justify-center text-3xl shadow-sm">🔍</div>
+          <div class="w-16 h-16 rounded-2xl bg-blue-500/20 flex items-center justify-center text-3xl">🔍</div>
           <div>
-            <h2 class="text-xl font-bold text-foreground group-hover:text-blue-500 transition-colors">Noma</h2>
-            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-500/10 text-blue-600 dark:text-blue-400">
-              Researcher
-            </span>
+            <h2 class="text-xl font-bold dark:text-white">Noma</h2>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-500 uppercase tracking-tighter">Researcher</span>
           </div>
         </div>
-        <div class="flex items-center gap-2 px-2 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-          <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400">Online</span>
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-green-500"></span>
+          <span class="text-sm font-medium dark:text-slate-300">Online</span>
         </div>
       </div>
 
       <div class="grid grid-cols-2 gap-4">
-        <div class="p-3 rounded-lg bg-surface-highlight border border-border">
-          <p class="text-[10px] uppercase font-bold text-muted-foreground tracking-wider mb-1">Model</p>
-          <p class="text-sm font-semibold text-foreground truncate">OpenRouter Auto</p>
+        <div class="p-4 rounded-2xl bg-slate-100/50 dark:bg-white/5 space-y-1">
+          <p class="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-widest">Model</p>
+          <p class="text-sm font-semibold dark:text-white truncate">OpenRouter Auto</p>
         </div>
-        <div class="p-3 rounded-lg bg-surface-highlight border border-border">
-          <p class="text-[10px] uppercase font-bold text-muted-foreground tracking-wider mb-1">Focus</p>
-          <p class="text-sm font-semibold text-foreground">Web/Market</p>
+        <div class="p-4 rounded-2xl bg-slate-100/50 dark:bg-white/5 space-y-1">
+          <p class="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-widest">Focus</p>
+          <p class="text-sm font-semibold dark:text-white">Web/Market</p>
         </div>
       </div>
 
-      <div class="p-3 rounded-lg border border-dashed border-border bg-surface-highlight/50 text-center">
-        <p class="text-xs text-muted-foreground font-medium">Noma is currently available for deep research tasks.</p>
+      <div class="p-4 rounded-2xl border border-dashed border-slate-200 dark:border-white/10 text-center text-xs text-slate-400">
+        Noma is currently available for deep research tasks.
       </div>
 
-      <div class="flex gap-3 pt-2 mt-auto">
-        <button class="btn bg-blue-500 text-white hover:bg-blue-600 flex-1 shadow-md shadow-blue-500/20 border-none">Start Research</button>
+      <div class="flex gap-2 pt-2">
+        <button class="flex-1 py-2 rounded-xl bg-blue-500 text-white text-sm font-bold hover:bg-blue-600 transition-colors">Start Research</button>
       </div>
     </div>
 
-    <!-- Agent Card: Naji (Assistant) -->
-    <div class="card p-6 flex flex-col gap-6 hover:shadow-lg transition-all duration-300 group border-l-4 border-l-emerald-500">
+    <!-- Agent Card: Naji -->
+    <div class="glass rounded-3xl p-8 flex flex-col gap-6 hover:shadow-2xl hover:shadow-brand-primary/5 transition-all group border-l-4 border-l-emerald-500">
       <div class="flex justify-between items-start">
         <div class="flex gap-4 items-center">
-          <div class="w-14 h-14 rounded-xl bg-emerald-500/10 flex items-center justify-center text-3xl shadow-sm">📅</div>
+          <div class="w-16 h-16 rounded-2xl bg-emerald-500/20 flex items-center justify-center text-3xl">📅</div>
           <div>
-            <h2 class="text-xl font-bold text-foreground group-hover:text-emerald-500 transition-colors">Naji</h2>
-            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-              Assistant
-            </span>
+            <h2 class="text-xl font-bold dark:text-white">Naji</h2>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 uppercase tracking-tighter">Assistant</span>
           </div>
         </div>
-        <div class="flex items-center gap-2 px-2 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-          <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400">Online</span>
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-green-500"></span>
+          <span class="text-sm font-medium dark:text-slate-300">Online</span>
         </div>
       </div>
 
       <div class="grid grid-cols-2 gap-4">
-        <div class="p-3 rounded-lg bg-surface-highlight border border-border">
-          <p class="text-[10px] uppercase font-bold text-muted-foreground tracking-wider mb-1">Model</p>
-          <p class="text-sm font-semibold text-foreground truncate">Gemini 2.5 Lite</p>
+        <div class="p-4 rounded-2xl bg-slate-100/50 dark:bg-white/5 space-y-1">
+          <p class="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-widest">Model</p>
+          <p class="text-sm font-semibold dark:text-white truncate">Gemini 2.5 Lite</p>
         </div>
-        <div class="p-3 rounded-lg bg-surface-highlight border border-border">
-          <p class="text-[10px] uppercase font-bold text-muted-foreground tracking-wider mb-1">Schedule</p>
-          <p class="text-sm font-semibold text-foreground">Next check: 16:00</p>
+        <div class="p-4 rounded-2xl bg-slate-100/50 dark:bg-white/5 space-y-1">
+          <p class="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-widest">Schedule</p>
+          <p class="text-sm font-semibold dark:text-white">Next check: 16:00</p>
         </div>
       </div>
 
       <div class="space-y-3">
-        <p class="text-[10px] uppercase font-bold text-muted-foreground tracking-wider">Active Schedule</p>
-        <div class="flex flex-wrap gap-2">
-          <span class="px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold uppercase tracking-wide">Hourly Summary</span>
-          <span class="px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold uppercase tracking-wide">Daily Brief</span>
+        <p class="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-widest">Active Schedule</p>
+        <div class="flex gap-2">
+          <div class="px-3 py-1 rounded-lg bg-emerald-500/10 text-emerald-500 text-[10px] font-bold">Hourly Summary</div>
+          <div class="px-3 py-1 rounded-lg bg-emerald-500/10 text-emerald-500 text-[10px] font-bold">Daily Brief</div>
         </div>
       </div>
 
-      <div class="flex gap-3 pt-2 mt-auto">
-        <button class="btn bg-emerald-500 text-white hover:bg-emerald-600 flex-1 shadow-md shadow-emerald-500/20 border-none">Manage Calendar</button>
+      <div class="flex gap-2 pt-2">
+        <button class="flex-1 py-2 rounded-xl bg-emerald-500 text-white text-sm font-bold hover:bg-emerald-600 transition-colors">Manage Calendar</button>
       </div>
     </div>
   </div>
