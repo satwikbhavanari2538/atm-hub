@@ -41,11 +41,8 @@ async def update_task(task_id: str, updates: dict = Body(...)):
     if not ObjectId.is_valid(task_id):
         raise HTTPException(status_code=400, detail="Invalid task ID")
     
-    # If status is updated to completed/failed, we might want to handle it specifically
-    # Based on user request: "done task will be remove from the db"
-    if updates.get("status") in ["completed", "done"]:
-        await tasks_collection.delete_one({"_id": ObjectId(task_id)})
-        return {"message": "Task completed and removed from storage"}
+    # Updated: No longer deleting on 'completed' status.
+    # Tasks will persist until EOD.
 
     result = await tasks_collection.update_one(
         {"_id": ObjectId(task_id)}, {"$set": updates}
@@ -55,6 +52,13 @@ async def update_task(task_id: str, updates: dict = Body(...)):
         
     updated_task = await tasks_collection.find_one({"_id": ObjectId(task_id)})
     return jsonable_encoder(AgentTask(**updated_task))
+
+@app.delete("/tasks/cleanup/eod")
+async def cleanup_eod():
+    """Endpoint to be called by a cron job at EOD to clear completed tasks"""
+    tasks_collection = await get_tasks_collection()
+    result = await tasks_collection.delete_many({"status": {"$in": ["completed", "done", "failed"]}})
+    return {"message": f"Cleaned up {result.deleted_count} tasks."}
 
 @app.get("/tasks", response_model=List[AgentTask])
 async def list_tasks():
