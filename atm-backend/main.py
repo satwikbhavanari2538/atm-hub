@@ -63,10 +63,7 @@ async def cleanup_eod():
 @app.get("/tasks", response_model=List[AgentTask])
 async def list_tasks():
     tasks_collection = await get_tasks_collection()
-    # Only show last 24 hours of tasks
-    time_threshold = datetime.utcnow() - timedelta(hours=24)
-    query = {"created_at": {"$gte": time_threshold}}
-    return await tasks_collection.find(query).to_list(1000)
+    return await tasks_collection.find().to_list(1000)
 
 @app.get("/agents", response_model=List[AgentStatus])
 async def list_agents():
