@@ -14,7 +14,7 @@ app = FastAPI(title="King Claw API")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -26,11 +26,16 @@ async def create_task(task: AgentTask = Body(...)):
     # Ensure created_at is set if not provided
     if not task_dict.get("created_at"):
         task_dict["created_at"] = datetime.utcnow()
+    
+    # Remove _id if it's null to let Mongo generate it
+    if task_dict.get("_id") is None:
+        task_dict.pop("_id", None)
+
     new_task = await tasks_collection.insert_one(task_dict)
     created_task = await tasks_collection.find_one({"_id": new_task.inserted_id})
     return created_task
 
-@app.patch("/tasks/{task_id}", response_model=AgentTask)
+@app.patch("/tasks/{task_id}")
 async def update_task(task_id: str, updates: dict = Body(...)):
     tasks_collection = await get_tasks_collection()
     if not ObjectId.is_valid(task_id):
@@ -40,7 +45,7 @@ async def update_task(task_id: str, updates: dict = Body(...)):
     # Based on user request: "done task will be remove from the db"
     if updates.get("status") in ["completed", "done"]:
         await tasks_collection.delete_one({"_id": ObjectId(task_id)})
-        return JSONResponse(status_code=200, content={"message": "Task completed and removed from storage"})
+        return {"message": "Task completed and removed from storage"}
 
     result = await tasks_collection.update_one(
         {"_id": ObjectId(task_id)}, {"$set": updates}
@@ -49,7 +54,7 @@ async def update_task(task_id: str, updates: dict = Body(...)):
         raise HTTPException(status_code=404, detail="Task not found")
         
     updated_task = await tasks_collection.find_one({"_id": ObjectId(task_id)})
-    return updated_task
+    return jsonable_encoder(AgentTask(**updated_task))
 
 @app.get("/tasks", response_model=List[AgentTask])
 async def list_tasks():

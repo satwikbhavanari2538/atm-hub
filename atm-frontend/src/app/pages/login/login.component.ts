@@ -18,6 +18,7 @@ export class LoginComponent {
   constructor(private router: Router) {}
 
   verifyPin() {
+    console.log('Verifying PIN:', this.pin);
     if (this.pin === this.masterPin) {
       localStorage.setItem('atm_authenticated', 'true');
       this.router.navigate(['/dashboard']);

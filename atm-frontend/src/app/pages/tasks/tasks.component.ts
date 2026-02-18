@@ -66,6 +66,7 @@ export class TasksComponent implements OnInit {
   }
 
   openCreateModal() {
+    console.log('Opening Create Modal');
     this.isEditMode.set(false);
     this.taskForm.reset({ target_agent: 'claw', priority: 'medium' });
     this.isModalOpen.set(true);
@@ -86,6 +87,10 @@ export class TasksComponent implements OnInit {
           next: () => {
             this.loadTasks();
             this.closeModal();
+          },
+          error: (err) => {
+            console.error('Update Task Failed', err);
+            alert('Mission Protocol Update Failed. Check Neural Link.');
           }
         });
     } else {
@@ -94,6 +99,10 @@ export class TasksComponent implements OnInit {
           next: () => {
             this.loadTasks();
             this.closeModal();
+          },
+          error: (err) => {
+            console.error('Create Task Failed', err);
+            alert('Mission Initialization Failed. Check Neural Link.');
           }
         });
     }

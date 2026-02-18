@@ -35,7 +35,7 @@ export class SettingsComponent {
     { 
       name: 'AI MODELS', 
       keys: [
-        { label: 'Gemini AI Key', value: 'AIzaSyB...sR5E', hidden: true },
+        { label: 'Gemini AI Key', value: 'AIzaSyD...D3z4k', hidden: true },
         { label: 'Groq API Key', value: 'gsk_ScN...4F', hidden: true },
         { label: 'Sarvam AI Key', value: 'sk_4pvjk...Q8QK', hidden: true },
         { label: 'Moonshot Key', value: 'nvapi-P3...2y6Km', hidden: true }

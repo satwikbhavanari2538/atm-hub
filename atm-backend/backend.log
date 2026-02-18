@@ -1,0 +1,44 @@
+INFO:     Will watch for changes in these directories: ['/home/shiva/.openclaw/workspace/projects/atm-hub/atm-backend']
+INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+INFO:     Started reloader process [46372] using StatReload
+INFO:     Started server process [46374]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:33268 - "POST /tasks HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [46374]
+INFO:     Started server process [47208]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:53464 - "HEAD /tasks HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:47008 - "GET /tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51286 - "GET / HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [47208]
+INFO:     Started server process [47701]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:55862 - "POST /tasks HTTP/1.1" 200 OK
+INFO:     64.227.187.126:57686 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47504 - "OPTIONS /tasks HTTP/1.1" 200 OK
+INFO:     64.227.187.126:59356 - "GET / HTTP/1.1" 200 OK
+INFO:     64.227.187.126:0 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51796 - "GET /tasks HTTP/1.1" 200 OK
+INFO:     2401:4900:657e:58d3:7c77:7aff:fe47:f7f0:0 - "GET /tasks HTTP/1.1" 200 OK
+INFO:     2401:4900:657e:58d3:7c77:7aff:fe47:f7f0:0 - "OPTIONS /tasks HTTP/1.1" 200 OK
+INFO:     2401:4900:657e:58d3:7c77:7aff:fe47:f7f0:0 - "POST /tasks HTTP/1.1" 200 OK
+INFO:     2401:4900:657e:58d3:7c77:7aff:fe47:f7f0:0 - "GET /tasks HTTP/1.1" 200 OK
+INFO:     2401:4900:657e:58d3:7c77:7aff:fe47:f7f0:0 - "OPTIONS /tasks/6994a7c6fc7f5cb8ac5e460c HTTP/1.1" 200 OK
+INFO:     2401:4900:657e:58d3:7c77:7aff:fe47:f7f0:0 - "PATCH /tasks/6994a7c6fc7f5cb8ac5e460c HTTP/1.1" 200 OK
+INFO:     2401:4900:657e:58d3:7c77:7aff:fe47:f7f0:0 - "GET /tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44544 - "GET /tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59478 - "GET /tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54010 - "PATCH /tasks/6994a7c6fc7f5cb8ac5e460c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33080 - "GET /tasks HTTP/1.1" 200 OK
+INFO:     2401:4900:657e:58d3:7c77:7aff:fe47:f7f0:0 - "GET /tasks HTTP/1.1" 200 OK
